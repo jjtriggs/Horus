@@ -4,463 +4,596 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>James Triggs — CTO Development</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com; img-src 'self' data: https:; frame-ancestors 'none'">
 <style>
-  :root {
-    --bg: #0a0f1e; --surface: #111827; --surface2: #1a2236;
-    --border: #1f2d44; --text: #e2e8f0; --muted: #94a3b8;
-    --accent: #6366f1; --green: #22c55e; --amber: #f59e0b;
-    --red: #ef4444; --radius: 8px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.6;padding-bottom:60px}
-  header{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
-  h1{font-size:22px;font-weight:800}
-  .sub{font-size:13px;color:var(--muted);margin-top:3px}
-  .save-badge{font-size:11px;color:var(--green);opacity:0;transition:opacity .5s}
-  .save-badge.show{opacity:1}
-  main{max-width:960px;margin:0 auto;padding:32px 24px}
-  .section-title{font-size:16px;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+:root{--bg:#0a0f1e;--surface:#111827;--surface2:#1a2236;--border:#1f2d44;--text:#e2e8f0;--muted:#94a3b8;--accent:#6366f1;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--radius:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.6;padding-bottom:60px}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+h1{font-size:20px;font-weight:800}
+.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.header-right{display:flex;align-items:center;gap:12px}
+.sync-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(34,197,94,.15);color:var(--green);opacity:0;transition:opacity .5s}
+.sync-badge.show{opacity:1}
+.sync-badge.error{background:rgba(239,68,68,.15);color:var(--red);opacity:1}
+main{max-width:960px;margin:0 auto;padding:32px 24px}
 
-  /* Score banner */
-  .score-banner{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
-  .score-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:default}
-  .score-card.combined{border-color:var(--accent)}
-  .score-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-  .score-value{font-size:32px;font-weight:800;margin:6px 0 3px}
-  .score-max{font-size:12px;color:var(--muted)}
+/* Connect screen */
+#connect-screen{max-width:480px;margin:80px auto;text-align:center}
+#connect-screen .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px}
+#connect-screen h2{font-size:20px;font-weight:700;margin-bottom:8px}
+#connect-screen p{color:var(--muted);font-size:13px;margin-bottom:24px;line-height:1.6}
+.input-wrap{position:relative;margin-bottom:12px}
+input[type=password],input[type=text]{width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:13px;outline:none;font-family:monospace}
+input:focus{border-color:var(--accent)}
+.connect-error{color:var(--red);font-size:12px;margin-top:8px;display:none}
+.connect-steps{text-align:left;font-size:12px;color:var(--muted);margin-bottom:20px;padding:12px 16px;background:var(--surface2);border-radius:var(--radius);line-height:2}
 
-  /* Progress bar */
-  .gate-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:32px}
-  .gate-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  .gate-label{font-size:13px;width:220px;flex-shrink:0}
-  .gate-bar-wrap{flex:1;background:var(--surface2);border-radius:20px;height:8px;overflow:hidden}
-  .gate-bar{height:100%;border-radius:20px;transition:width .5s}
-  .gate-status{font-size:11px;font-weight:700;width:60px;text-align:right;flex-shrink:0}
+/* Scores */
+.score-banner{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.score-card.combined{border-color:var(--accent)}
+.score-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.score-val{font-size:30px;font-weight:800;margin:5px 0 2px}
+.score-max{font-size:11px;color:var(--muted)}
+.progress-label{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px}
 
-  /* Competencies */
-  .competency-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
-  .comp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-  .comp-title{font-size:15px;font-weight:700}
-  .comp-id{font-size:11px;color:var(--muted);margin-top:2px}
-  .comp-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
-  .score-selector{display:flex;gap:6px;margin-bottom:14px}
-  .score-btn{width:38px;height:38px;border-radius:50%;border:2px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
-  .score-btn:hover{border-color:var(--accent);color:var(--text)}
-  .score-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
-  .score-desc{font-size:12px;color:var(--muted);margin-bottom:12px;min-height:16px}
-  label{font-size:11px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-  textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:10px 12px;line-height:1.5;resize:vertical;outline:none;font-family:inherit}
-  textarea:focus{border-color:var(--accent)}
+/* Gates */
+.gate-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:28px}
+.section-title{font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.gate-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.gate-label{font-size:12px;width:210px;flex-shrink:0}
+.gate-bar-bg{flex:1;background:var(--surface2);border-radius:20px;height:7px;overflow:hidden}
+.gate-bar{height:100%;border-radius:20px;transition:width .5s}
+.gate-target{font-size:11px;font-weight:700;width:80px;text-align:right;flex-shrink:0}
+.gate-controls{margin-top:14px;display:flex;flex-wrap:wrap;gap:14px}
+.gate-control{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;color:var(--text)}
+.gate-control input[type=number]{width:44px;padding:3px 7px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:12px;text-align:center}
 
-  /* Journal */
-  .journal-entry{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
-  .journal-date{font-size:11px;color:var(--muted);margin-bottom:8px}
-  .btn{padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-size:13px;transition:background .15s}
-  .btn:hover{background:var(--surface2)}
-  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-  .btn-primary:hover{background:#4f46e5}
-  .btn-sm{padding:5px 12px;font-size:12px}
-  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px}
-  .tab{padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-size:13px;font-weight:500;transition:all .15s}
-  .tab:hover{color:var(--text)}
-  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-  .pane{display:none}.pane.active{display:block}
-  .chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-  .chip-g{background:rgba(34,197,94,.15);color:var(--green)}
-  .chip-a{background:rgba(245,158,11,.15);color:var(--amber)}
-  .chip-r{background:rgba(239,68,68,.15);color:var(--red)}
-  .chip-gr{background:rgba(100,116,139,.15);color:var(--muted)}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:600px){.score-banner{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.tab{padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-size:13px;font-weight:500;transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.pane{display:none}.pane.active{display:block}
+
+/* Competencies */
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.comp-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.comp-title{font-size:15px;font-weight:700}
+.comp-id{font-size:11px;color:var(--muted);margin-bottom:2px}
+.chip{display:inline-block;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.chip-g{background:rgba(34,197,94,.15);color:var(--green)}
+.chip-a{background:rgba(245,158,11,.15);color:var(--amber)}
+.chip-r{background:rgba(239,68,68,.15);color:var(--red)}
+.comp-desc{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.55}
+.score-btns{display:flex;gap:7px;margin-bottom:8px}
+.sbtn{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.sbtn:hover{border-color:var(--accent);color:var(--text)}
+.sbtn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.level-desc{font-size:12px;color:var(--amber);min-height:18px;margin-bottom:10px}
+label{font-size:11px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:9px 12px;resize:vertical;outline:none;font-family:inherit;line-height:1.5}
+textarea:focus{border-color:var(--accent)}
+
+/* Journal */
+.journal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.journal-meta{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:8px}
+
+/* Actions */
+.action-group{margin-bottom:20px}
+.action-group-title{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.action-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.action-row:last-child{border-bottom:none}
+
+/* Buttons */
+.btn{padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-size:13px;transition:background .15s}
+.btn:hover{background:var(--surface2)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:#4f46e5}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(239,68,68,.1)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mt{margin-top:16px}
+.info-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;font-size:12px;color:var(--muted);line-height:1.6}
+.info-box code{background:var(--bg);padding:2px 6px;border-radius:4px;font-family:monospace;color:var(--text)}
+@media(max-width:600px){.score-banner{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
+<!-- Connect screen (shown when not authenticated) -->
+<div id="connect-screen" style="display:none">
+  <div class="card">
+    <div style="font-size:32px;margin-bottom:12px">🔒</div>
+    <h2>CTO Development Tracker</h2>
+    <p>Personal development journal for James Triggs.<br/>
+    Connect with your GitHub token to load your data from a private Gist.</p>
+    <div class="connect-steps">
+      <strong style="color:var(--text)">Your data is stored in a private GitHub Gist</strong><br/>
+      Only you can read or write it. The token is saved in this browser only.
+    </div>
+    <input type="password" id="connect-token" placeholder="Paste your GitHub PAT (github_pat_...)" autocomplete="off"/>
+    <div id="connect-error" class="connect-error"></div>
+    <div class="mt">
+      <button class="btn btn-primary" style="width:100%" id="btn-connect">Connect</button>
+    </div>
+    <p style="margin-top:14px;font-size:11px;color:var(--muted)">
+      New device? Enter the same token — your Gist will be found automatically.
+    </p>
+  </div>
+</div>
+
+<!-- Main app (shown when authenticated) -->
+<div id="app-screen" style="display:none">
 <header>
   <div>
     <h1>CTO Development Tracker</h1>
-    <div class="sub">James Triggs &middot; Private &middot; Auto-saved to this browser</div>
+    <div class="sub">James Triggs &middot; Data stored in private GitHub Gist &middot; <span id="last-saved-label">—</span></div>
   </div>
-  <div id="save-badge" class="save-badge">Saved</div>
+  <div class="header-right">
+    <span id="sync-badge" class="sync-badge">Saved to Gist</span>
+    <button class="btn btn-sm" id="btn-save-now">Save now</button>
+    <button class="btn btn-sm btn-danger" id="btn-disconnect">Disconnect</button>
+  </div>
 </header>
 
 <main>
 
-<!-- Score banner -->
-<div class="score-banner" style="margin-bottom:24px">
+<div class="score-banner">
   <div class="score-card">
     <div class="score-label">D1 Engineering</div>
-    <div class="score-value" id="banner-d1">30.0</div>
-    <div class="score-max">/ 40 pts</div>
+    <div class="score-val" id="b-d1">30.0</div>
+    <div class="score-max">/ 40</div>
   </div>
   <div class="score-card">
     <div class="score-label">D2 AI Maturity</div>
-    <div class="score-value" id="banner-d2">13.3</div>
-    <div class="score-max">/ 20 pts</div>
+    <div class="score-val" id="b-d2">13.3</div>
+    <div class="score-max">/ 20</div>
   </div>
   <div class="score-card">
     <div class="score-label">D3 Competencies</div>
-    <div class="score-value" id="banner-d3">—</div>
-    <div class="score-max">/ 40 pts</div>
+    <div class="score-val" id="b-d3">—</div>
+    <div class="score-max">/ 40</div>
   </div>
   <div class="score-card combined">
     <div class="score-label">Combined</div>
-    <div class="score-value" id="banner-combined">—</div>
-    <div class="score-max" id="banner-label">/ 100</div>
+    <div class="score-val" id="b-combined">—</div>
+    <div class="score-max">/ 100</div>
+    <div class="progress-label" id="b-label">—</div>
   </div>
 </div>
 
-<!-- Gate progress -->
-<div class="gate-card" style="margin-bottom:24px">
-  <div class="section-title">CTO Promotion Gates</div>
+<div class="gate-card">
+  <div class="section-title">CTO Promotion Gate 1 — Individual Readiness</div>
   <div id="gates-container"></div>
+  <div class="gate-controls" id="gate-controls"></div>
 </div>
 
-<!-- Tabs -->
 <div class="tabs">
   <button class="tab active" data-pane="competencies">Big WHO Scorecard</button>
-  <button class="tab" data-pane="journey">Development Journey</button>
+  <button class="tab" data-pane="journey">Development Journal</button>
   <button class="tab" data-pane="actions">Next Actions</button>
+  <button class="tab" data-pane="settings">Settings</button>
 </div>
 
-<!-- Pane: Competencies -->
 <div class="pane active" id="pane-competencies">
   <div id="competencies-container"></div>
 </div>
 
-<!-- Pane: Journey -->
 <div class="pane" id="pane-journey">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-    <p style="color:var(--muted);font-size:13px">Quarterly reflections and milestones on your path to CTO.</p>
-    <button class="btn btn-primary btn-sm" onclick="addJournalEntry()">+ Add Entry</button>
+    <p style="color:var(--muted);font-size:13px">Quarterly reflections. Add an entry after each scorecard session with David.</p>
+    <button class="btn btn-primary btn-sm" id="btn-add-journal">+ New Entry</button>
   </div>
-  <div id="journal-container">
-    <p style="color:var(--muted);text-align:center;padding:32px">No entries yet. Add your first reflection.</p>
-  </div>
+  <div id="journal-container"></div>
 </div>
 
-<!-- Pane: Next Actions -->
 <div class="pane" id="pane-actions">
-  <div style="margin-bottom:20px">
-    <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Key actions to move each competency forward. Tied to the CTO development plan milestones.</p>
-    <div id="actions-container"></div>
+  <div id="actions-container"></div>
+</div>
+
+<div class="pane" id="pane-settings">
+  <div class="info-box">
+    <strong style="color:var(--text)">Your data Gist ID:</strong><br/>
+    <code id="settings-gist-id">—</code><br/><br/>
+    To set up on another device, enter the same GitHub token — your Gist will be found automatically by name.
+    <br/><br/>
+    <strong style="color:var(--text)">D1 and D2 scores</strong> (pulled from the engineering dashboard — update when the scorecard changes):<br/>
+    <div style="display:flex;gap:12px;margin-top:10px">
+      <div>
+        <label>D1 weighted score</label>
+        <input type="number" id="settings-d1" step="0.1" min="0" max="40" style="width:80px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:5px 8px;font-size:13px"/>
+      </div>
+      <div>
+        <label>D2 weighted score</label>
+        <input type="number" id="settings-d2" step="0.1" min="0" max="20" style="width:80px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:5px 8px;font-size:13px"/>
+      </div>
+    </div>
+    <button class="btn btn-sm mt" id="btn-save-d1d2">Update scores</button>
   </div>
 </div>
 
 </main>
+</div>
 
 <script>
-// ── Data model ─────────────────────────────────────────────────────────────────
-const COMPETENCIES = [
-  {
-    id: "C1", title: "Supporting Strategic Tech Vision",
-    vp: "Internal engineering roadmap, execution focus.",
-    cto: "Board-ready tech strategy that supports David's founder vision. You can articulate why technical choices create competitive moat and present it confidently to investors.",
-    levels: ["Haven't done this","Have an internal roadmap, not board-ready","Can articulate tech strategy, not yet investor-ready","Contribute meaningfully to board narrative with David","Own the technology narrative independently"],
-    gate_required: 3,
-    suggested_actions: [
-      "Co-present the engineering metrics section at the next board meeting (July target)",
-      "Write a one-page technology narrative for the Q3 board pack",
-      "Shadow David in 2 customer tech-strategy sessions"
-    ]
-  },
-  {
-    id: "C2", title: "Engineering Excellence at Scale",
-    vp: "Manage teams, keep things running day-to-day.",
-    cto: "The org operates autonomously. Your absence for a week produces zero degradation. Team leads own their DORA metrics, incidents resolve without escalation.",
-    levels: ["Org entirely dependent on me","Critical decisions still go through me","Some autonomy, I'm still a bottleneck on much","Team leads are largely autonomous, I remove blockers","Org runs autonomously; my focus is strategy not operations"],
-    gate_required: 3,
-    suggested_actions: [
-      "Publish team lead ownership matrix — each lead owns their DORA metrics",
-      "Run a 'war game': take a week off mentally and see what escalates",
-      "Delegate incident command for P1s to leads, review retrospectively"
-    ]
-  },
-  {
-    id: "C3", title: "AI-Native Engineering Leadership",
-    vp: "Ad hoc AI tool adoption — no org-wide standards.",
-    cto: "You define and enforce org-wide AI engineering standards. Eval frameworks run in CI, PromptOps is standard practice, and you can measure AI contribution to velocity.",
-    levels: ["No AI standards, purely ad hoc","Aware of AI tooling, starting to shape direction","Some standards emerging, actively driving adoption","Standards set, evals in CI, measuring AI contribution","AI-native culture: AI is default, not exception"],
-    gate_required: 3,
-    suggested_actions: [
-      "Define and publish PromptOps standards with the pilot team (Q3)",
-      "Add LLM eval framework to CI for at least one AI-assisted feature",
-      "Produce a monthly AI adoption report for David (based on dashboard data)"
-    ]
-  },
-  {
-    id: "C4", title: "Cross-Functional Influence",
-    vp: "Primarily engineering silo. Product, sales, CS bring requests.",
-    cto: "You're in revenue conversations, customer tech sessions, and investor narrative discussions. You translate engineering output into business value language fluently.",
-    levels: ["Engineering silo — no external conversations","Starting to engage with other functions","Regular cross-functional input, still reactive","Proactively shape product/sales/investor narrative","Trusted voice in all business decisions, not just engineering"],
-    gate_required: 3,
-    suggested_actions: [
-      "Support David in 3 customer tech-strategy meetings this year",
-      "Present engineering health dashboard to the full leadership team",
-      "Write one external piece (talk, article, or podcast) on technical strategy"
-    ]
-  },
-  {
-    id: "C5", title: "Talent & Culture Builder",
-    vp: "Hire engineers when there are open reqs.",
-    cto: "Proactively identify world-class talent before you need it. Build a culture that is itself a hiring advantage — people join SenseOn because of what you've created.",
-    levels: ["Reactive hiring only, no talent pipeline","Beginning to build relationships with talent","Consistent culture investment, some pipeline","Culture is a differentiator, talent pipeline active","Culture and talent are strategic moats, industry recognition"],
-    gate_required: 3,
-    suggested_actions: [
-      "Identify 3 potential future hires and start a relationship now",
-      "Define and document 'what SenseOn engineering culture means' — publish internally",
-      "Launch one engineer-facing initiative that builds external reputation"
-    ]
-  },
-  {
-    id: "C6", title: "Operational Rigor",
-    vp: "Reactive — firefighting incidents, short-horizon planning.",
-    cto: "Board-ready engineering health dashboard (you're building this), proactive capacity planning 2+ quarters out, engineering org is predictable to the business.",
-    levels: ["Purely reactive, no dashboards or forecasting","Some metrics tracked, still mostly reactive","DORA dashboard live, starting proactive planning","Predictable engineering health, 1-2 quarter horizon","Board-level operational visibility, 2+ quarter horizon"],
-    gate_required: 3,
-    suggested_actions: [
-      "Present engineering health dashboard as a standing board item (Q3)",
-      "Produce Q3 capacity plan and share with David in advance",
-      "Define SLA for engineering predictability — hit it for 2 consecutive quarters"
-    ]
+// ── Competency definitions ────────────────────────────────────────────────────
+const COMPS = [
+  {id:"C1",title:"Supporting Strategic Tech Vision",
+   vp:"Internal engineering roadmap, execution focus.",
+   cto:"Board-ready tech strategy supporting David's founder vision. You articulate why technical choices create competitive moat and present confidently to investors.",
+   levels:["Haven't done this yet","Have an internal roadmap, not board-ready","Can articulate the tech strategy, not yet investor-ready","Contribute meaningfully to board narrative alongside David","Own the technology narrative independently"],
+   actions:["Co-present engineering metrics at the July board meeting","Write a one-page technology narrative for Q3 board pack","Shadow David in 2+ customer tech-strategy sessions this quarter"]},
+  {id:"C2",title:"Engineering Excellence at Scale",
+   vp:"Manage the teams, keep things running day-to-day.",
+   cto:"The org operates autonomously. Your week of absence produces zero degradation. Team leads own DORA metrics, incidents resolve without escalation.",
+   levels:["Org entirely dependent on me for decisions","Critical decisions still go through me","Some autonomy but I'm still a bottleneck on much","Team leads largely autonomous; I remove blockers","Org runs autonomously; my focus is strategy, not operations"],
+   actions:["Publish team lead ownership matrix — each lead owns their DORA metrics","Delegate incident command for P1s to leads, review retrospectively","Run a war game: plan a week away and see what would escalate"]},
+  {id:"C3",title:"AI-Native Engineering Leadership",
+   vp:"Ad hoc AI tool adoption — no org-wide standards.",
+   cto:"Org-wide AI engineering standards defined and enforced. Eval frameworks in CI, PromptOps is standard practice, AI contribution to velocity measurable.",
+   levels:["No AI standards, purely ad hoc","Aware of AI tooling, starting to shape direction","Some standards emerging, actively driving adoption","Standards set, evals in CI, measuring AI contribution to velocity","AI-native culture: AI is default, not exception"],
+   actions:["Define and publish PromptOps standards with the pilot team (Q3)","Add LLM eval framework to CI for at least one AI-assisted feature","Produce a monthly AI adoption report for David from dashboard data"]},
+  {id:"C4",title:"Cross-Functional Influence",
+   vp:"Primarily engineering silo. Other functions come to you with requests.",
+   cto:"In revenue conversations, customer tech sessions, and investor narrative discussions. You translate engineering output into business value language fluently.",
+   levels:["Engineering silo — no external conversations","Starting to engage with other functions reactively","Regular cross-functional input, still reactive","Proactively shaping product/sales/investor narrative","Trusted voice in all business decisions, not just engineering"],
+   actions:["Support David in 3 customer tech-strategy meetings this year","Present engineering health dashboard to the full leadership team","Write one external piece (talk, article or podcast) on technical strategy"]},
+  {id:"C5",title:"Talent & Culture Builder",
+   vp:"Hire engineers when there are open reqs.",
+   cto:"Proactively identify world-class talent before you need it. Build a culture that is itself a hiring advantage.",
+   levels:["Reactive hiring only, no talent pipeline","Beginning to build relationships with potential hires","Consistent culture investment, some pipeline building","Culture is a differentiator, talent pipeline active","Culture and talent are strategic moats; external recognition"],
+   actions:["Identify 3 potential future hires and start a relationship now","Document 'what SenseOn engineering culture means' — publish internally","Launch one engineer-facing initiative that builds external reputation"]},
+  {id:"C6",title:"Operational Rigor",
+   vp:"Reactive — firefighting incidents, short-horizon planning.",
+   cto:"Board-ready engineering health dashboard (you're building this), proactive capacity planning 2+ quarters out, engineering org is predictable to the business.",
+   levels:["Purely reactive, no dashboards or forecasting","Some metrics tracked, still mostly reactive","DORA dashboard live, starting proactive planning","Predictable engineering health, 1-2 quarter horizon","Board-level operational visibility, 2+ quarter forecast horizon"],
+   actions:["Present engineering health dashboard as a standing board item (Q3)","Produce Q3 capacity plan and share with David before the quarter","Define SLA for engineering predictability — hit it 2 consecutive quarters"]},
+];
+
+const GATE_ITEMS = [
+  {id:"board",  label:"Board co-presentation delivered", target:"≥1", type:"bool"},
+  {id:"customer",label:"Customer tech sessions", target:"≥3", type:"count", threshold:3},
+  {id:"dashboard",label:"Eng health dashboard live + weekly review", target:"Live", type:"bool"},
+];
+
+// ── GitHub Gist storage ───────────────────────────────────────────────────────
+const GIST_FILENAME = "cto_tracker_data.json";
+const GIST_DESC     = "CTO Development Tracker — private data";
+const LS_TOKEN      = "cto_gh_token";
+const LS_GIST_ID    = "cto_gist_id";
+
+let _token  = localStorage.getItem(LS_TOKEN)  || "";
+let _gistId = localStorage.getItem(LS_GIST_ID) || "";
+let _gistSha = "";          // ETag/version — not needed for Gist API
+let _saveTimer = null;
+
+function ghHeaders() {
+  return {"Authorization": `Bearer ${_token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json"};
+}
+
+async function findOrCreateGist() {
+  // Search user's gists for one with our description
+  let page = 1;
+  while (true) {
+    const r = await fetch(`https://api.github.com/gists?per_page=100&page=${page}`, {headers: ghHeaders()});
+    if (!r.ok) throw new Error(`Gist list failed: ${r.status}`);
+    const gists = await r.json();
+    if (!gists.length) break;
+    const found = gists.find(g => g.description === GIST_DESC);
+    if (found) { _gistId = found.id; localStorage.setItem(LS_GIST_ID, _gistId); return _gistId; }
+    if (gists.length < 100) break;
+    page++;
   }
-];
-
-const GATE_CRITERIA = [
-  { label: "D3 score", target: "22/30", check: s => s.d3raw >= 22 },
-  { label: "No competency below 3", target: "All ≥ 3", check: s => s.minScore >= 3 },
-  { label: "Board co-presentation", target: "≥1 delivered", key: "gate_board", type: "bool" },
-  { label: "Customer tech sessions", target: "≥3 cumulative", key: "gate_customer", type: "count", threshold: 3 },
-  { label: "Eng health dashboard live", target: "Live + weekly review", key: "gate_dashboard", type: "bool" },
-];
-
-// ── Storage ────────────────────────────────────────────────────────────────────
-function load() {
-  try { return JSON.parse(localStorage.getItem("cto_dev_v1") || "{}"); }
-  catch { return {}; }
-}
-function save(data) {
-  localStorage.setItem("cto_dev_v1", JSON.stringify(data));
-  const badge = document.getElementById("save-badge");
-  badge.classList.add("show");
-  setTimeout(() => badge.classList.remove("show"), 2000);
+  // Create new private Gist
+  const r2 = await fetch("https://api.github.com/gists", {
+    method: "POST", headers: ghHeaders(),
+    body: JSON.stringify({description: GIST_DESC, public: false, files: {[GIST_FILENAME]: {content: JSON.stringify(defaultState(), null, 2)}}}),
+  });
+  if (!r2.ok) throw new Error(`Gist create failed: ${r2.status}`);
+  const gist = await r2.json();
+  _gistId = gist.id; localStorage.setItem(LS_GIST_ID, _gistId);
+  return _gistId;
 }
 
-let STATE = load();
-if (!STATE.scores)   STATE.scores   = { C1:3, C2:3, C3:3, C4:3, C5:3, C6:3 };
-if (!STATE.evidence) STATE.evidence = {};
-if (!STATE.journal)  STATE.journal  = [];
-if (!STATE.actions)  STATE.actions  = {};
-if (!STATE.gates)    STATE.gates    = {};
-if (!STATE.d1) STATE.d1 = 30.0;
-if (!STATE.d2) STATE.d2 = 13.3;
-
-// ── Score calculations ─────────────────────────────────────────────────────────
-function computeScores() {
-  const d3raw  = Object.values(STATE.scores).reduce((a,b) => a+b, 0);
-  const d3      = +(d3raw / 30 * 40).toFixed(1);
-  const combined = +(STATE.d1 + STATE.d2 + d3).toFixed(1);
-  const label   = combined >= 84 ? "CTO-Ready" : combined >= 78 ? "Strong" : combined >= 62 ? "Progressing" : combined >= 50 ? "Developing" : "Early";
-  const minScore = Math.min(...Object.values(STATE.scores));
-  return { d3raw, d3, combined, label, minScore };
+async function loadFromGist() {
+  if (!_gistId) await findOrCreateGist();
+  const r = await fetch(`https://api.github.com/gists/${_gistId}`, {headers: ghHeaders()});
+  if (!r.ok) throw new Error(`Gist read failed: ${r.status}`);
+  const gist = await r.json();
+  const raw  = gist.files[GIST_FILENAME]?.content;
+  return raw ? JSON.parse(raw) : defaultState();
 }
 
-// ── Render banner ──────────────────────────────────────────────────────────────
-function renderBanner() {
-  const s = computeScores();
-  document.getElementById("banner-d1").textContent      = STATE.d1.toFixed(1);
-  document.getElementById("banner-d2").textContent      = STATE.d2.toFixed(1);
-  document.getElementById("banner-d3").textContent      = s.d3.toFixed(1);
-  document.getElementById("banner-combined").textContent = s.combined.toFixed(1);
-  document.getElementById("banner-label").textContent   = `/ 100 · ${s.label}`;
+async function saveToGist(state) {
+  if (!_gistId) return;
+  const r = await fetch(`https://api.github.com/gists/${_gistId}`, {
+    method: "PATCH", headers: ghHeaders(),
+    body: JSON.stringify({files: {[GIST_FILENAME]: {content: JSON.stringify(state, null, 2)}}}),
+  });
+  if (!r.ok) throw new Error(`Gist write failed: ${r.status}`);
+  return r.json();
 }
 
-// ── Render gates ───────────────────────────────────────────────────────────────
-function renderGates() {
-  const s = computeScores();
-  const container = document.getElementById("gates-container");
-  container.innerHTML = GATE_CRITERIA.map(g => {
-    let passed, pct;
-    if (g.type === "bool") {
-      passed = !!STATE.gates[g.key];
-      pct    = passed ? 100 : 0;
-    } else if (g.type === "count") {
-      const val = parseInt(STATE.gates[g.key] || 0);
-      passed = val >= g.threshold;
-      pct    = Math.min(100, Math.round((val / g.threshold) * 100));
-    } else {
-      passed = g.check(s);
-      pct    = g.id === "d3" ? Math.min(100, Math.round((s.d3raw / 30) * 100))
-              : passed ? 100 : Math.round((s.minScore / 3) * 100);
+function scheduleSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(async () => {
+    try {
+      await saveToGist(STATE);
+      showSync("Saved to Gist", false);
+      STATE.last_saved = new Date().toISOString();
+      document.getElementById("last-saved-label").textContent = `Saved ${new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`;
+    } catch(e) {
+      showSync("Save failed: " + e.message, true);
     }
-    const color = passed ? "var(--green)" : pct > 50 ? "var(--amber)" : "var(--red)";
+  }, 2000);
+}
+
+function showSync(msg, isError) {
+  const el = document.getElementById("sync-badge");
+  el.textContent = msg;
+  el.className = "sync-badge show" + (isError ? " error" : "");
+  if (!isError) setTimeout(() => el.classList.remove("show"), 3000);
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+function defaultState() {
+  return {scores:{C1:3,C2:3,C3:3,C4:3,C5:3,C6:3}, evidence:{}, journal:[], actions:{}, gates:{}, d1:30.0, d2:13.3, last_saved:null};
+}
+let STATE = defaultState();
+
+function compute() {
+  const raw  = Object.values(STATE.scores).reduce((a,b)=>a+b,0);
+  const d3   = +(raw/30*40).toFixed(1);
+  const comb = +(STATE.d1 + STATE.d2 + d3).toFixed(1);
+  const lbl  = comb>=84?"CTO-Ready":comb>=78?"Strong":comb>=62?"Progressing":comb>=50?"Developing":"Early";
+  const minS = Math.min(...Object.values(STATE.scores));
+  return {raw, d3, comb, lbl, minS};
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function renderBanner() {
+  const s = compute();
+  document.getElementById("b-d1").textContent = STATE.d1.toFixed(1);
+  document.getElementById("b-d2").textContent = STATE.d2.toFixed(1);
+  document.getElementById("b-d3").textContent = s.d3.toFixed(1);
+  document.getElementById("b-combined").textContent = s.comb.toFixed(1);
+  document.getElementById("b-label").textContent = s.lbl;
+}
+
+function renderGates() {
+  const s = compute();
+  const passes = [
+    s.raw >= 22,
+    s.minS >= 3,
+    !!STATE.gates.board,
+    (parseInt(STATE.gates.customer)||0) >= 3,
+    !!STATE.gates.dashboard,
+  ];
+  const labels  = ["D3 score ≥22/30", "No competency below 3", "Board co-presentation", "Customer tech sessions", "Eng health dashboard"];
+  const targets = ["≥22/30", "All ≥3", "≥1 done", "≥3", "Live"];
+  const pcts    = [
+    Math.min(100, Math.round(s.raw/22*100)),
+    s.minS >= 3 ? 100 : Math.round(s.minS/3*100),
+    passes[2]?100:0, Math.min(100,Math.round(((parseInt(STATE.gates.customer)||0)/3)*100)), passes[4]?100:0,
+  ];
+  document.getElementById("gates-container").innerHTML = labels.map((lbl,i) => {
+    const col = passes[i]?"var(--green)":pcts[i]>50?"var(--amber)":"var(--red)";
     return `<div class="gate-row">
-      <span class="gate-label">${g.label}</span>
-      <div class="gate-bar-wrap"><div class="gate-bar" style="width:${pct}%;background:${color}"></div></div>
-      <span class="gate-status" style="color:${color}">${g.target}</span>
+      <span class="gate-label">${lbl}</span>
+      <div class="gate-bar-bg"><div class="gate-bar" style="width:${pcts[i]}%;background:${col}"></div></div>
+      <span class="gate-target" style="color:${col}">${targets[i]}</span>
     </div>`;
   }).join("");
-
-  // Gate controls below bars
-  const extraHtml = `
-    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;font-size:12px">
-      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;text-transform:none;letter-spacing:0">
-        <input type="checkbox" ${STATE.gates.gate_board?"checked":""} onchange="toggleGate('gate_board',this.checked)"/>
-        Board co-presentation delivered
-      </label>
-      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;text-transform:none;letter-spacing:0">
-        <input type="checkbox" ${STATE.gates.gate_dashboard?"checked":""} onchange="toggleGate('gate_dashboard',this.checked)"/>
-        Eng health dashboard live + weekly review
-      </label>
-      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;text-transform:none;letter-spacing:0">
-        Customer tech sessions:
-        <input type="number" min="0" max="10" value="${STATE.gates.gate_customer||0}"
-               style="width:46px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:2px 6px;font-size:12px"
-               onchange="setGate('gate_customer',this.value)"/>
-        / 3
-      </label>
-    </div>`;
-  container.insertAdjacentHTML("beforeend", extraHtml);
+  document.getElementById("gate-controls").innerHTML = `
+    <label class="gate-control"><input type="checkbox" ${STATE.gates.board?"checked":""} id="g-board"/> Board co-presentation delivered</label>
+    <label class="gate-control"><input type="checkbox" ${STATE.gates.dashboard?"checked":""} id="g-dashboard"/> Eng health dashboard live + reviewed weekly</label>
+    <label class="gate-control">Customer tech sessions: <input type="number" id="g-customer" min="0" max="20" value="${STATE.gates.customer||0}"/> / 3</label>`;
+  document.getElementById("g-board").onchange    = e => { STATE.gates.board = e.target.checked; scheduleSave(); renderGates(); };
+  document.getElementById("g-dashboard").onchange = e => { STATE.gates.dashboard = e.target.checked; scheduleSave(); renderGates(); };
+  document.getElementById("g-customer").onchange  = e => { STATE.gates.customer = parseInt(e.target.value)||0; scheduleSave(); renderGates(); };
 }
 
-function toggleGate(key, val) { STATE.gates[key] = val; save(STATE); renderGates(); }
-function setGate(key, val) { STATE.gates[key] = parseInt(val)||0; save(STATE); renderGates(); }
-
-// ── Render competencies ────────────────────────────────────────────────────────
 function renderCompetencies() {
-  const container = document.getElementById("competencies-container");
-  container.innerHTML = COMPETENCIES.map(c => {
-    const score   = STATE.scores[c.id] || 0;
-    const evidence = STATE.evidence[c.id] || "";
-    const levelDesc = score > 0 ? c.levels[score - 1] : "Not scored";
-    const chip = score >= 4 ? "chip-g" : score >= c.gate_required ? "chip-a" : "chip-r";
-    const btns = [1,2,3,4,5].map(n =>
-      `<button class="score-btn ${score===n?"active":""}" onclick="setScore('${c.id}',${n})">${n}</button>`
-    ).join("");
-
-    return `<div class="competency-card" id="card-${c.id}">
-      <div class="comp-header">
-        <div>
-          <div class="comp-id">${c.id}</div>
-          <div class="comp-title">${c.title}</div>
-        </div>
-        <span class="chip ${chip}" style="font-size:14px;padding:4px 14px">${score || "—"}/5</span>
+  document.getElementById("competencies-container").innerHTML = COMPS.map(c => {
+    const sc  = STATE.scores[c.id]||0;
+    const ev  = STATE.evidence[c.id]||"";
+    const ch  = sc>=4?"chip-g":sc>=3?"chip-a":"chip-r";
+    const btns= [1,2,3,4,5].map(n=>`<button class="sbtn${sc===n?" active":""}" data-comp="${c.id}" data-n="${n}">${n}</button>`).join("");
+    return `<div class="comp-card" id="cc-${c.id}">
+      <div class="comp-hdr">
+        <div><div class="comp-id">${c.id}</div><div class="comp-title">${c.title}</div></div>
+        <span class="chip ${ch}" id="ch-${c.id}">${sc||"—"}/5</span>
       </div>
-      <div class="comp-desc">
-        <strong style="color:var(--text)">VP Eng now:</strong> ${c.vp}<br/>
-        <strong style="color:var(--text)">CTO target:</strong> ${c.cto}
-      </div>
-      <div class="score-selector">${btns}</div>
-      <div class="score-desc" id="desc-${c.id}" style="color:var(--amber)">${levelDesc}</div>
-      <label>Evidence &amp; examples (what demonstrates this score)</label>
-      <textarea rows="3" placeholder="Concrete examples from the last 90 days..." onchange="setEvidence('${c.id}',this.value)">${evidence}</textarea>
+      <div class="comp-desc"><strong style="color:var(--text)">VP Eng now:</strong> ${c.vp}<br/><strong style="color:var(--text)">CTO target:</strong> ${c.cto}</div>
+      <div class="score-btns">${btns}</div>
+      <div class="level-desc" id="ld-${c.id}">${sc?c.levels[sc-1]:""}</div>
+      <label>Evidence &amp; examples — what demonstrates this score?</label>
+      <textarea rows="3" data-ev="${c.id}" placeholder="Concrete examples from the last 90 days...">${ev}</textarea>
     </div>`;
   }).join("");
 }
 
-function setScore(id, score) {
-  STATE.scores[id] = score;
-  save(STATE);
-  renderBanner();
-  renderGates();
-  // Update card inline without full re-render
-  const card    = document.getElementById(`card-${id}`);
-  const c       = COMPETENCIES.find(x => x.id === id);
-  const desc    = c.levels[score - 1];
-  const chip    = score >= 4 ? "chip-g" : score >= c.gate_required ? "chip-a" : "chip-r";
-  card.querySelectorAll(".score-btn").forEach((btn, i) => {
-    btn.classList.toggle("active", i + 1 === score);
-  });
-  card.querySelector(`#desc-${id}`).textContent = desc;
-  card.querySelector(".chip").className = `chip ${chip}`;
-  card.querySelector(".chip").textContent = `${score}/5`;
-}
-
-function setEvidence(id, val) { STATE.evidence[id] = val; save(STATE); }
-
-// ── Journal ────────────────────────────────────────────────────────────────────
 function renderJournal() {
-  const container = document.getElementById("journal-container");
-  if (!STATE.journal.length) {
-    container.innerHTML = `<p style="color:var(--muted);text-align:center;padding:32px">No entries yet. Add your first reflection.</p>`;
-    return;
-  }
-  container.innerHTML = STATE.journal.slice().reverse().map((entry, revIdx) => {
-    const idx = STATE.journal.length - 1 - revIdx;
-    return `<div class="journal-entry">
-      <div class="journal-date" style="display:flex;justify-content:space-between">
-        <span>${entry.date} &middot; D3 score at time: ${entry.d3}/30</span>
-        <button class="btn btn-sm" onclick="deleteJournal(${idx})" style="font-size:11px;padding:2px 8px;color:var(--red);border-color:var(--red)">Delete</button>
+  const c = document.getElementById("journal-container");
+  if (!STATE.journal.length) { c.innerHTML = `<p style="color:var(--muted);text-align:center;padding:32px">No entries yet. Click New Entry after each scorecard session.</p>`; return; }
+  c.innerHTML = STATE.journal.slice().reverse().map((e,ri) => {
+    const idx = STATE.journal.length-1-ri;
+    return `<div class="journal-card">
+      <div class="journal-meta">
+        <span>${e.date} &middot; D3: ${e.d3raw}/30 &middot; Combined: ${e.combined}/100</span>
+        <button class="btn btn-sm btn-danger" data-del="${idx}">Delete</button>
       </div>
-      <textarea rows="5" style="margin-top:8px" onchange="updateJournal(${idx},'text',this.value)">${entry.text}</textarea>
+      <textarea rows="6" data-jidx="${idx}" placeholder="Reflection: what went well, what to improve, what David said...">${e.text||""}</textarea>
     </div>`;
   }).join("");
 }
 
-function addJournalEntry() {
-  const s = computeScores();
-  STATE.journal.push({
-    date: new Date().toLocaleDateString("en-GB", {day:"numeric",month:"short",year:"numeric"}),
-    d3: s.d3raw,
-    text: ""
-  });
-  save(STATE);
-  renderJournal();
-  document.getElementById("pane-journey").querySelector("textarea")?.focus();
-}
-
-function updateJournal(idx, field, val) { STATE.journal[idx][field] = val; save(STATE); }
-function deleteJournal(idx) {
-  if (!confirm("Delete this entry?")) return;
-  STATE.journal.splice(idx, 1);
-  save(STATE);
-  renderJournal();
-}
-
-// ── Next actions ───────────────────────────────────────────────────────────────
 function renderActions() {
-  const container = document.getElementById("actions-container");
-  container.innerHTML = COMPETENCIES.map(c => {
-    const done = STATE.actions[c.id] || [];
-    return `<div style="margin-bottom:20px">
-      <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--accent)">${c.id}: ${c.title}</div>
-      ${c.suggested_actions.map((a, i) => {
-        const key = `${c.id}_${i}`;
-        const checked = done.includes(key);
-        return `<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);text-transform:none;letter-spacing:0;color:${checked?"var(--muted)":"var(--text)"}">
-          <input type="checkbox" ${checked?"checked":""} style="margin-top:2px" onchange="toggleAction('${key}',this.checked)"/>
-          <span style="text-decoration:${checked?"line-through":"none"}">${a}</span>
-        </label>`;
+  document.getElementById("actions-container").innerHTML = COMPS.map(c => {
+    const done = STATE.actions[c.id]||[];
+    return `<div class="action-group">
+      <div class="action-group-title">${c.id}: ${c.title}</div>
+      ${c.actions.map((a,i)=>{
+        const key=`${c.id}_${i}`;const chk=done.includes(key);
+        return `<div class="action-row">
+          <input type="checkbox" ${chk?"checked":""} data-act="${key}" data-cid="${c.id}"/>
+          <span style="text-decoration:${chk?"line-through":"none"};color:${chk?"var(--muted)":"var(--text)"}">${a}</span>
+        </div>`;
       }).join("")}
     </div>`;
   }).join("");
 }
 
-function toggleAction(key, checked) {
-  const [cId] = key.split("_");
-  if (!STATE.actions[cId]) STATE.actions[cId] = [];
-  if (checked) { if (!STATE.actions[cId].includes(key)) STATE.actions[cId].push(key); }
-  else { STATE.actions[cId] = STATE.actions[cId].filter(k => k !== key); }
-  save(STATE);
-  renderActions();
+function renderSettings() {
+  document.getElementById("settings-gist-id").textContent = _gistId || "Not connected";
+  const d1 = document.getElementById("settings-d1");
+  const d2 = document.getElementById("settings-d2");
+  if (d1) d1.value = STATE.d1;
+  if (d2) d2.value = STATE.d2;
 }
 
-// ── Tabs ───────────────────────────────────────────────────────────────────────
+function renderAll() { renderBanner(); renderGates(); renderCompetencies(); renderJournal(); renderActions(); renderSettings(); }
+
+// ── Events ────────────────────────────────────────────────────────────────────
+document.addEventListener("click", e => {
+  // Score buttons
+  const sbtn = e.target.closest(".sbtn[data-comp]");
+  if (sbtn) {
+    const cid = sbtn.dataset.comp, n = parseInt(sbtn.dataset.n), c = COMPS.find(x=>x.id===cid);
+    STATE.scores[cid] = n;
+    // Update card inline
+    document.querySelectorAll(`.sbtn[data-comp="${cid}"]`).forEach(b => b.classList.toggle("active", parseInt(b.dataset.n)===n));
+    document.getElementById(`ld-${cid}`).textContent = c.levels[n-1];
+    const ch = n>=4?"chip-g":n>=3?"chip-a":"chip-r";
+    document.getElementById(`ch-${cid}`).className = `chip ${ch}`;
+    document.getElementById(`ch-${cid}`).textContent = `${n}/5`;
+    renderBanner(); renderGates();
+    scheduleSave(); return;
+  }
+  // Delete journal
+  const del = e.target.closest("[data-del]");
+  if (del && confirm("Delete this entry?")) {
+    STATE.journal.splice(parseInt(del.dataset.del),1);
+    renderJournal(); scheduleSave(); return;
+  }
+  // Action checkbox
+  const act = e.target.closest("[data-act]");
+  if (act && act.tagName==="INPUT") {
+    const key=act.dataset.act, cid=act.dataset.cid;
+    if (!STATE.actions[cid]) STATE.actions[cid]=[];
+    if (act.checked) { if(!STATE.actions[cid].includes(key)) STATE.actions[cid].push(key); }
+    else STATE.actions[cid]=STATE.actions[cid].filter(k=>k!==key);
+    renderActions(); scheduleSave(); return;
+  }
+});
+
+document.addEventListener("change", e => {
+  // Evidence textarea
+  const ev = e.target.dataset.ev;
+  if (ev) { STATE.evidence[ev] = e.target.value; scheduleSave(); return; }
+  // Journal textarea
+  const ji = e.target.dataset.jidx;
+  if (ji !== undefined) { STATE.journal[parseInt(ji)].text = e.target.value; scheduleSave(); return; }
+});
+
+// ── Boot & auth ───────────────────────────────────────────────────────────────
+async function boot() {
+  if (_token) {
+    try {
+      // Verify token still valid
+      const r = await fetch("https://api.github.com/user", {headers: ghHeaders()});
+      if (!r.ok) throw new Error("Token invalid");
+      const user = await r.json();
+      if (user.login !== "jjtriggs") throw new Error(`Wrong account: ${user.login}`);
+      // Load data
+      STATE = await loadFromGist();
+      showApp();
+    } catch(e) {
+      localStorage.removeItem(LS_TOKEN);
+      localStorage.removeItem(LS_GIST_ID);
+      _token=""; _gistId="";
+      showConnect(e.message);
+    }
+  } else {
+    showConnect();
+  }
+}
+
+function showConnect(err) {
+  document.getElementById("connect-screen").style.display="block";
+  document.getElementById("app-screen").style.display="none";
+  if (err) { document.getElementById("connect-error").textContent=err; document.getElementById("connect-error").style.display="block"; }
+}
+
+function showApp() {
+  document.getElementById("connect-screen").style.display="none";
+  document.getElementById("app-screen").style.display="block";
+  renderAll();
+  if (STATE.last_saved) {
+    document.getElementById("last-saved-label").textContent = `Last saved ${new Date(STATE.last_saved).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}`;
+  }
+}
+
+document.getElementById("btn-connect").addEventListener("click", async () => {
+  const token = document.getElementById("connect-token").value.trim();
+  const errEl = document.getElementById("connect-error");
+  const btn   = document.getElementById("btn-connect");
+  if (!token) { errEl.textContent="Please paste your GitHub token."; errEl.style.display="block"; return; }
+  btn.textContent="Connecting…"; btn.disabled=true;
+  try {
+    const r = await fetch("https://api.github.com/user", {headers: {"Authorization":`Bearer ${token}`,"Accept":"application/vnd.github+json"}});
+    if (!r.ok) throw new Error(`GitHub API ${r.status} — check your token`);
+    const user = await r.json();
+    if (user.login !== "jjtriggs") throw new Error(`This token belongs to '${user.login}', not jjtriggs`);
+    _token = token;
+    localStorage.setItem(LS_TOKEN, token);
+    STATE = await loadFromGist();
+    showApp();
+  } catch(e) {
+    errEl.textContent = e.message; errEl.style.display="block";
+  } finally { btn.textContent="Connect"; btn.disabled=false; }
+});
+
+document.getElementById("btn-disconnect").addEventListener("click", () => {
+  if (!confirm("This clears your saved token from this browser. Your Gist data is unaffected.")) return;
+  localStorage.removeItem(LS_TOKEN); localStorage.removeItem(LS_GIST_ID);
+  _token=""; _gistId="";
+  showConnect();
+});
+
+document.getElementById("btn-save-now").addEventListener("click", async () => {
+  try { await saveToGist(STATE); showSync("Saved to Gist", false); }
+  catch(e) { showSync("Save failed: "+e.message, true); }
+});
+
+document.getElementById("btn-add-journal").addEventListener("click", () => {
+  const s = compute();
+  STATE.journal.push({date: new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}), d3raw:s.raw, combined:s.comb, text:""});
+  renderJournal(); scheduleSave();
+  document.querySelector("[data-jidx='0']")?.focus();
+});
+
 document.querySelectorAll(".tab").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".pane").forEach(p=>p.classList.remove("active"));
     btn.classList.add("active");
     document.getElementById(`pane-${btn.dataset.pane}`).classList.add("active");
+    if (btn.dataset.pane==="settings") renderSettings();
   });
 });
 
-// ── Boot ───────────────────────────────────────────────────────────────────────
-renderBanner();
-renderGates();
-renderCompetencies();
-renderJournal();
-renderActions();
+document.getElementById("btn-save-d1d2")?.addEventListener("click", () => {
+  STATE.d1 = parseFloat(document.getElementById("settings-d1").value) || 30.0;
+  STATE.d2 = parseFloat(document.getElementById("settings-d2").value) || 13.3;
+  renderBanner(); scheduleSave();
+});
+
+// Start
+boot();
 </script>
 </body>
 </html>
