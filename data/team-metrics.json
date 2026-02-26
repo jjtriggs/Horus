@@ -1,6 +1,6 @@
 {
   "window_days": 90,
-  "fetched_at": "2026-02-26T13:05:53.314Z",
+  "fetched_at": "2026-02-26T16:27:04.749Z",
   "github_stats": {
     "tomtidswell": {
       "prs_opened": 29,
@@ -15,22 +15,22 @@
       "commits": 37
     },
     "chrisdc": {
-      "prs_opened": 42,
-      "prs_merged": 33,
+      "prs_opened": 43,
+      "prs_merged": 34,
       "prs_reviewed": 26,
-      "commits": 44
+      "commits": 46
     },
     "mbrighty": {
       "prs_opened": 31,
       "prs_merged": 27,
-      "prs_reviewed": 203,
+      "prs_reviewed": 205,
       "commits": 47
     },
     "cameronbamford": {
-      "prs_opened": 53,
-      "prs_merged": 43,
+      "prs_opened": 54,
+      "prs_merged": 44,
       "prs_reviewed": 36,
-      "commits": 77
+      "commits": 78
     },
     "hh2110": {
       "prs_opened": 74,
@@ -39,7 +39,7 @@
       "commits": 97
     },
     "lukemoran-so": {
-      "prs_opened": 28,
+      "prs_opened": 30,
       "prs_merged": 17,
       "prs_reviewed": 50,
       "commits": 40
@@ -77,14 +77,14 @@
     "mark-jordanovic-lewis": {
       "prs_opened": 26,
       "prs_merged": 18,
-      "prs_reviewed": 53,
+      "prs_reviewed": 54,
       "commits": 48
     },
     "asikosa-senseon": {
-      "prs_opened": 95,
-      "prs_merged": 93,
+      "prs_opened": 96,
+      "prs_merged": 94,
       "prs_reviewed": 41,
-      "commits": 93
+      "commits": 94
     },
     "thomas-mcgarrigan": {
       "prs_opened": 9,
@@ -97,434 +97,8 @@
   "anthropic": null,
   "ant_usage": {
     "tokens": 0,
-    "cost_usd": 20325.22,
-    "daily": [
-      {
-        "label": "28 Nov",
-        "tokens": 0,
-        "cost_usd": 296.43
-      },
-      {
-        "label": "29 Nov",
-        "tokens": 0,
-        "cost_usd": 101.94
-      },
-      {
-        "label": "30 Nov",
-        "tokens": 0,
-        "cost_usd": 241.3
-      },
-      {
-        "label": "1 Dec",
-        "tokens": 0,
-        "cost_usd": 356.73
-      },
-      {
-        "label": "2 Dec",
-        "tokens": 0,
-        "cost_usd": 224.39
-      },
-      {
-        "label": "3 Dec",
-        "tokens": 0,
-        "cost_usd": 255.02
-      },
-      {
-        "label": "4 Dec",
-        "tokens": 0,
-        "cost_usd": 67.89
-      },
-      {
-        "label": "5 Dec",
-        "tokens": 0,
-        "cost_usd": 253.93
-      },
-      {
-        "label": "6 Dec",
-        "tokens": 0,
-        "cost_usd": 79.8
-      },
-      {
-        "label": "7 Dec",
-        "tokens": 0,
-        "cost_usd": 81.15
-      },
-      {
-        "label": "8 Dec",
-        "tokens": 0,
-        "cost_usd": 99.14
-      },
-      {
-        "label": "9 Dec",
-        "tokens": 0,
-        "cost_usd": 109.1
-      },
-      {
-        "label": "10 Dec",
-        "tokens": 0,
-        "cost_usd": 152.74
-      },
-      {
-        "label": "11 Dec",
-        "tokens": 0,
-        "cost_usd": 170.79
-      },
-      {
-        "label": "12 Dec",
-        "tokens": 0,
-        "cost_usd": 127.13
-      },
-      {
-        "label": "13 Dec",
-        "tokens": 0,
-        "cost_usd": 4.7
-      },
-      {
-        "label": "15 Dec",
-        "tokens": 0,
-        "cost_usd": 203.59
-      },
-      {
-        "label": "16 Dec",
-        "tokens": 0,
-        "cost_usd": 118.7
-      },
-      {
-        "label": "17 Dec",
-        "tokens": 0,
-        "cost_usd": 78.33
-      },
-      {
-        "label": "18 Dec",
-        "tokens": 0,
-        "cost_usd": 32.61
-      },
-      {
-        "label": "19 Dec",
-        "tokens": 0,
-        "cost_usd": 9.89
-      },
-      {
-        "label": "20 Dec",
-        "tokens": 0,
-        "cost_usd": 71.66
-      },
-      {
-        "label": "21 Dec",
-        "tokens": 0,
-        "cost_usd": 182.17
-      },
-      {
-        "label": "22 Dec",
-        "tokens": 0,
-        "cost_usd": 123.86
-      },
-      {
-        "label": "23 Dec",
-        "tokens": 0,
-        "cost_usd": 0.29
-      },
-      {
-        "label": "24 Dec",
-        "tokens": 0,
-        "cost_usd": 0.05
-      },
-      {
-        "label": "25 Dec",
-        "tokens": 0,
-        "cost_usd": 0.1
-      },
-      {
-        "label": "26 Dec",
-        "tokens": 0,
-        "cost_usd": 0.03
-      },
-      {
-        "label": "30 Dec",
-        "tokens": 0,
-        "cost_usd": 73.7
-      },
-      {
-        "label": "31 Dec",
-        "tokens": 0,
-        "cost_usd": 129.35
-      },
-      {
-        "label": "2 Jan",
-        "tokens": 0,
-        "cost_usd": 73.2
-      },
-      {
-        "label": "3 Jan",
-        "tokens": 0,
-        "cost_usd": 76.38
-      },
-      {
-        "label": "4 Jan",
-        "tokens": 0,
-        "cost_usd": 9.68
-      },
-      {
-        "label": "5 Jan",
-        "tokens": 0,
-        "cost_usd": 157.81
-      },
-      {
-        "label": "6 Jan",
-        "tokens": 0,
-        "cost_usd": 71.54
-      },
-      {
-        "label": "7 Jan",
-        "tokens": 0,
-        "cost_usd": 203.51
-      },
-      {
-        "label": "8 Jan",
-        "tokens": 0,
-        "cost_usd": 115.73
-      },
-      {
-        "label": "9 Jan",
-        "tokens": 0,
-        "cost_usd": 147.18
-      },
-      {
-        "label": "10 Jan",
-        "tokens": 0,
-        "cost_usd": 199.71
-      },
-      {
-        "label": "11 Jan",
-        "tokens": 0,
-        "cost_usd": 388.63
-      },
-      {
-        "label": "12 Jan",
-        "tokens": 0,
-        "cost_usd": 74.68
-      },
-      {
-        "label": "13 Jan",
-        "tokens": 0,
-        "cost_usd": 306.24
-      },
-      {
-        "label": "14 Jan",
-        "tokens": 0,
-        "cost_usd": 375.28
-      },
-      {
-        "label": "15 Jan",
-        "tokens": 0,
-        "cost_usd": 396.53
-      },
-      {
-        "label": "16 Jan",
-        "tokens": 0,
-        "cost_usd": 489.12
-      },
-      {
-        "label": "17 Jan",
-        "tokens": 0,
-        "cost_usd": 217.17
-      },
-      {
-        "label": "18 Jan",
-        "tokens": 0,
-        "cost_usd": 256.6
-      },
-      {
-        "label": "19 Jan",
-        "tokens": 0,
-        "cost_usd": 234.77
-      },
-      {
-        "label": "20 Jan",
-        "tokens": 0,
-        "cost_usd": 516.17
-      },
-      {
-        "label": "21 Jan",
-        "tokens": 0,
-        "cost_usd": 351.01
-      },
-      {
-        "label": "22 Jan",
-        "tokens": 0,
-        "cost_usd": 527.2
-      },
-      {
-        "label": "23 Jan",
-        "tokens": 0,
-        "cost_usd": 319.6
-      },
-      {
-        "label": "24 Jan",
-        "tokens": 0,
-        "cost_usd": 157.26
-      },
-      {
-        "label": "25 Jan",
-        "tokens": 0,
-        "cost_usd": 256.82
-      },
-      {
-        "label": "26 Jan",
-        "tokens": 0,
-        "cost_usd": 305.66
-      },
-      {
-        "label": "27 Jan",
-        "tokens": 0,
-        "cost_usd": 276.09
-      },
-      {
-        "label": "28 Jan",
-        "tokens": 0,
-        "cost_usd": 325.15
-      },
-      {
-        "label": "29 Jan",
-        "tokens": 0,
-        "cost_usd": 264.25
-      },
-      {
-        "label": "30 Jan",
-        "tokens": 0,
-        "cost_usd": 328.95
-      },
-      {
-        "label": "31 Jan",
-        "tokens": 0,
-        "cost_usd": 132.86
-      },
-      {
-        "label": "1 Feb",
-        "tokens": 0,
-        "cost_usd": 234.31
-      },
-      {
-        "label": "2 Feb",
-        "tokens": 0,
-        "cost_usd": 323.86
-      },
-      {
-        "label": "3 Feb",
-        "tokens": 0,
-        "cost_usd": 306.28
-      },
-      {
-        "label": "4 Feb",
-        "tokens": 0,
-        "cost_usd": 306.4
-      },
-      {
-        "label": "5 Feb",
-        "tokens": 0,
-        "cost_usd": 547.79
-      },
-      {
-        "label": "6 Feb",
-        "tokens": 0,
-        "cost_usd": 251.18
-      },
-      {
-        "label": "7 Feb",
-        "tokens": 0,
-        "cost_usd": 61.1
-      },
-      {
-        "label": "8 Feb",
-        "tokens": 0,
-        "cost_usd": 17.22
-      },
-      {
-        "label": "9 Feb",
-        "tokens": 0,
-        "cost_usd": 248.63
-      },
-      {
-        "label": "10 Feb",
-        "tokens": 0,
-        "cost_usd": 713.68
-      },
-      {
-        "label": "11 Feb",
-        "tokens": 0,
-        "cost_usd": 60.21
-      },
-      {
-        "label": "12 Feb",
-        "tokens": 0,
-        "cost_usd": 224.32
-      },
-      {
-        "label": "13 Feb",
-        "tokens": 0,
-        "cost_usd": 325.02
-      },
-      {
-        "label": "14 Feb",
-        "tokens": 0,
-        "cost_usd": 759.9
-      },
-      {
-        "label": "15 Feb",
-        "tokens": 0,
-        "cost_usd": 385.1
-      },
-      {
-        "label": "16 Feb",
-        "tokens": 0,
-        "cost_usd": 285.38
-      },
-      {
-        "label": "17 Feb",
-        "tokens": 0,
-        "cost_usd": 207.54
-      },
-      {
-        "label": "18 Feb",
-        "tokens": 0,
-        "cost_usd": 476.07
-      },
-      {
-        "label": "19 Feb",
-        "tokens": 0,
-        "cost_usd": 470.58
-      },
-      {
-        "label": "20 Feb",
-        "tokens": 0,
-        "cost_usd": 531.53
-      },
-      {
-        "label": "21 Feb",
-        "tokens": 0,
-        "cost_usd": 384.36
-      },
-      {
-        "label": "22 Feb",
-        "tokens": 0,
-        "cost_usd": 216.05
-      },
-      {
-        "label": "23 Feb",
-        "tokens": 0,
-        "cost_usd": 335.51
-      },
-      {
-        "label": "24 Feb",
-        "tokens": 0,
-        "cost_usd": 538.19
-      },
-      {
-        "label": "25 Feb",
-        "tokens": 0,
-        "cost_usd": 913.72
-      }
-    ]
+    "cost_usd": 0,
+    "daily": []
   },
   "weekly_org": [
     {
@@ -615,8 +189,8 @@
       "start": "2026-02-20",
       "end": "2026-02-26",
       "label": "20 Feb",
-      "prs_opened": 115,
-      "prs_merged": 87
+      "prs_opened": 121,
+      "prs_merged": 90
     }
   ],
   "member_weekly": {
@@ -735,7 +309,7 @@
         "pr_sample": 20,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:06:48.233Z",
+      "fetched_at": "2026-02-26T16:28:19.400Z",
       "window_days": 90
     },
     "terryhibbert": {
@@ -853,7 +427,7 @@
         "pr_sample": 20,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:06:55.229Z",
+      "fetched_at": "2026-02-26T16:28:29.006Z",
       "window_days": 90
     },
     "chrisdc": {
@@ -959,19 +533,19 @@
             "start": "2026-02-20",
             "end": "2026-02-26",
             "label": "20 Feb",
-            "prs_opened": 4,
-            "prs_merged": 12,
+            "prs_opened": 5,
+            "prs_merged": 13,
             "prs_reviewed": 8
           }
         ],
         "lines_added": 22261,
         "lines_removed": 17352,
         "lines_net": 4909,
-        "lines_per_pr": 1200,
-        "pr_sample": 33,
+        "lines_per_pr": 1165,
+        "pr_sample": 34,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:00.838Z",
+      "fetched_at": "2026-02-26T16:28:35.067Z",
       "window_days": 90
     },
     "mbrighty": {
@@ -1079,7 +653,7 @@
             "label": "20 Feb",
             "prs_opened": 4,
             "prs_merged": 4,
-            "prs_reviewed": 13
+            "prs_reviewed": 15
           }
         ],
         "lines_added": 19747,
@@ -1089,7 +663,7 @@
         "pr_sample": 27,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:05.679Z",
+      "fetched_at": "2026-02-26T16:28:43.018Z",
       "window_days": 90
     },
     "cameronbamford": {
@@ -1195,19 +769,19 @@
             "start": "2026-02-20",
             "end": "2026-02-26",
             "label": "20 Feb",
-            "prs_opened": 6,
-            "prs_merged": 4,
+            "prs_opened": 7,
+            "prs_merged": 5,
             "prs_reviewed": 3
           }
         ],
-        "lines_added": 14397,
-        "lines_removed": 1995,
-        "lines_net": 12402,
-        "lines_per_pr": 381,
-        "pr_sample": 43,
+        "lines_added": 14464,
+        "lines_removed": 2000,
+        "lines_net": 12464,
+        "lines_per_pr": 374,
+        "pr_sample": 44,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:14.177Z",
+      "fetched_at": "2026-02-26T16:28:48.917Z",
       "window_days": 90
     },
     "hh2110": {
@@ -1325,7 +899,7 @@
         "pr_sample": 64,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:21.650Z",
+      "fetched_at": "2026-02-26T16:28:58.356Z",
       "window_days": 90
     },
     "lukemoran-so": {
@@ -1431,7 +1005,7 @@
             "start": "2026-02-20",
             "end": "2026-02-26",
             "label": "20 Feb",
-            "prs_opened": 6,
+            "prs_opened": 8,
             "prs_merged": 0,
             "prs_reviewed": 12
           }
@@ -1443,7 +1017,7 @@
         "pr_sample": 17,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:26.679Z",
+      "fetched_at": "2026-02-26T16:29:03.126Z",
       "window_days": 90
     },
     "andreasenseon": {
@@ -1561,7 +1135,7 @@
         "pr_sample": 6,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:35.727Z",
+      "fetched_at": "2026-02-26T16:29:06.865Z",
       "window_days": 90
     },
     "operry-senseon": {
@@ -1679,7 +1253,7 @@
         "pr_sample": 12,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:41.124Z",
+      "fetched_at": "2026-02-26T16:29:13.419Z",
       "window_days": 90
     },
     "fabianceccato": {
@@ -1797,7 +1371,7 @@
         "pr_sample": 9,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:46.595Z",
+      "fetched_at": "2026-02-26T16:29:17.629Z",
       "window_days": 90
     },
     "ethanm-0": {
@@ -1915,7 +1489,7 @@
         "pr_sample": 33,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:51.783Z",
+      "fetched_at": "2026-02-26T16:29:23.895Z",
       "window_days": 90
     },
     "timjohncurtis": {
@@ -2033,7 +1607,7 @@
         "pr_sample": 50,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:07:58.655Z",
+      "fetched_at": "2026-02-26T16:29:30.818Z",
       "window_days": 90
     },
     "mark-jordanovic-lewis": {
@@ -2141,7 +1715,7 @@
             "label": "20 Feb",
             "prs_opened": 7,
             "prs_merged": 0,
-            "prs_reviewed": 2
+            "prs_reviewed": 3
           }
         ],
         "lines_added": 423817,
@@ -2151,7 +1725,7 @@
         "pr_sample": 18,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:08:04.610Z",
+      "fetched_at": "2026-02-26T16:29:37.168Z",
       "window_days": 90
     },
     "asikosa-senseon": {
@@ -2257,19 +1831,19 @@
             "start": "2026-02-20",
             "end": "2026-02-26",
             "label": "20 Feb",
-            "prs_opened": 5,
-            "prs_merged": 5,
+            "prs_opened": 6,
+            "prs_merged": 6,
             "prs_reviewed": 3
           }
         ],
-        "lines_added": 3473,
-        "lines_removed": 1995,
-        "lines_net": 1478,
-        "lines_per_pr": 59,
-        "pr_sample": 93,
+        "lines_added": 3477,
+        "lines_removed": 2000,
+        "lines_net": 1477,
+        "lines_per_pr": 58,
+        "pr_sample": 94,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:08:11.797Z",
+      "fetched_at": "2026-02-26T16:29:45.410Z",
       "window_days": 90
     },
     "thomas-mcgarrigan": {
@@ -2387,7 +1961,7 @@
         "pr_sample": 8,
         "ai_prs_reviewed": 0
       },
-      "fetched_at": "2026-02-26T13:08:15.333Z",
+      "fetched_at": "2026-02-26T16:29:49.426Z",
       "window_days": 90
     }
   }
