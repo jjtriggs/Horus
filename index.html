@@ -260,12 +260,19 @@ textarea:focus{border-color:var(--accent)}
 </div>
 
 <div class="pane" id="pane-team">
-  <div id="team-stale-msg" class="team-stale" style="display:none">Data is more than 24 hours old — click Refresh to get the latest stats.</div>
+  <div id="team-stale-msg" class="team-stale" style="display:none">Data is more than 24 hours old — click Sync to fetch latest.</div>
+  <div id="team-sync-progress" style="display:none;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.3);border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--accent)">
+    <span id="sync-progress-msg">Syncing data...</span>
+    <pre id="sync-log" style="margin-top:8px;font-size:10px;color:var(--muted);max-height:120px;overflow-y:auto;background:var(--surface2);padding:8px;border-radius:4px;white-space:pre-wrap;word-break:break-all"></pre>
+  </div>
   <div class="team-toolbar">
     <button class="win-btn active" data-days="30">30 days</button>
     <button class="win-btn" data-days="60">60 days</button>
     <button class="win-btn" data-days="90">90 days</button>
-    <button class="btn btn-sm btn-primary" id="btn-team-refresh" style="margin-left:auto">Refresh</button>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn btn-sm" id="btn-team-refresh" title="Reload cached data from repo file (instant)">Reload</button>
+      <button class="btn btn-sm btn-primary" id="btn-team-sync" title="Fetch fresh data from GitHub + Anthropic (~2 min)">Sync</button>
+    </div>
     <span id="team-fetched-at" class="team-fetched"></span>
   </div>
   <div class="team-summary-banner" id="team-summary-banner"></div>
@@ -721,6 +728,7 @@ document.querySelectorAll(".tab").forEach(btn => {
 });
 
 document.getElementById("btn-team-refresh")?.addEventListener("click", () => refreshTeamData());
+document.getElementById("btn-team-sync")?.addEventListener("click", () => syncTeamData());
 
 document.addEventListener("click", e => {
   const wb = e.target.closest(".win-btn[data-days]");
@@ -1247,41 +1255,69 @@ async function _fetchAnthropicEnrollment() {
   }
 }
 
+// Reload team data instantly from the repo's JSON file (written by fetch_data.py / Sync).
 async function refreshTeamData() {
   const btn = document.getElementById("btn-team-refresh");
-  if (btn) { btn.textContent = "Fetching…"; btn.disabled = true; }
+  if (btn) { btn.textContent = "Loading…"; btn.disabled = true; }
   try {
-    const [ghResult, antResult, trendResult, antUsageResult] = await Promise.allSettled([
-      _fetchGitHubTeamStats(_teamWindow),
-      _fetchAnthropicEnrollment(),
-      _fetchOrgWeeklyTrend(_teamWindow),
-      _fetchAnthropicOrgUsage(_teamWindow),
-    ]);
-    const ghStats    = ghResult.status       === "fulfilled" ? ghResult.value       : null;
-    const ghErr      = ghResult.status       === "rejected"  ? ghResult.reason.message : null;
-    const antData    = antResult.status      === "fulfilled" ? antResult.value      : null;
-    const orgTrend   = trendResult.status    === "fulfilled" ? trendResult.value    : null;
-    const antUsage   = antUsageResult.status === "fulfilled" ? antUsageResult.value : null;
-    const prevWeekly = STATE.team_cache?.member_weekly || {};
-    STATE.team_cache = {
-      window_days:   _teamWindow,
-      fetched_at:    new Date().toISOString(),
-      github_stats:  ghStats,
-      github_error:  ghErr,
-      anthropic:     antData,
-      ant_usage:     antUsage,
-      weekly_org:    orgTrend,
-      member_weekly: prevWeekly,
-    };
-    scheduleSave();
-    saveMetricsToFile(STATE.team_cache);
+    const r = await fetch("/data/team-metrics.json?t=" + Date.now());
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    if (!data.fetched_at) throw new Error("Invalid data file");
+    STATE.team_cache = data;
+    _teamWindow = data.window_days || _teamWindow;
+    document.querySelectorAll(".win-btn[data-days]").forEach(b =>
+      b.classList.toggle("active", parseInt(b.dataset.days) === _teamWindow));
     renderTeam();
-    if (ghErr) showSync("Team refresh partial: " + ghErr, true);
-    else showSync("Team stats refreshed", false);
+    showSync("Reloaded from file", false);
   } catch(e) {
-    showSync("Team refresh failed: " + e.message, true);
+    showSync("Reload failed: " + e.message, true);
   } finally {
-    if (btn) { btn.textContent = "Refresh"; btn.disabled = false; }
+    if (btn) { btn.textContent = "Reload"; btn.disabled = false; }
+  }
+}
+
+// Trigger fetch_data.py on the server (background, ~2 min) then auto-reload when done.
+async function syncTeamData() {
+  const btn     = document.getElementById("btn-team-sync");
+  const prog    = document.getElementById("team-sync-progress");
+  const msg     = document.getElementById("sync-progress-msg");
+  const logEl   = document.getElementById("sync-log");
+  if (btn) { btn.textContent = "Syncing…"; btn.disabled = true; }
+  if (prog) prog.style.display = "block";
+  if (msg)  msg.textContent = "Starting fetch_data.py…";
+  if (logEl) logEl.textContent = "";
+  try {
+    const start = await fetch("/api/run-fetch", {method:"POST"});
+    const sData = await start.json();
+    if (!sData.started && sData.message !== "Already running") {
+      showSync("Sync failed to start", true);
+      return;
+    }
+    // Poll until complete
+    const startTime = Date.now();
+    let lastSize = 0;
+    while (Date.now() - startTime < 600000) {
+      await new Promise(res => setTimeout(res, 3000));
+      const status = await fetch("/api/fetch-status").then(r=>r.json()).catch(()=>null);
+      if (!status) continue;
+      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      if (msg) msg.textContent = `Syncing… ${elapsed}s`;
+      if (logEl && status.log_tail) logEl.textContent = status.log_tail;
+      if (logEl) logEl.scrollTop = logEl.scrollHeight;
+      if (!status.running && status.last_updated) {
+        // Fetch finished — reload the JSON
+        if (msg) msg.textContent = `Done in ${elapsed}s — reloading…`;
+        await refreshTeamData();
+        showSync("Sync complete", false);
+        break;
+      }
+    }
+  } catch(e) {
+    showSync("Sync error: " + e.message, true);
+  } finally {
+    if (btn) { btn.textContent = "Sync"; btn.disabled = false; }
+    setTimeout(() => { if (prog) prog.style.display = "none"; }, 3000);
   }
 }
 
