@@ -1035,7 +1035,7 @@ function computeScore(member, ghStats, ant) {
   if (!member.github || !ghStats) return null;
   const s = ghStats[member.github];
   if (!s) return null;
-  const enrolled = ant ? !!ant[member.github] : member.cc;
+  const enrolled = member.cc || (ant ? !!ant[member.github] : false);
   const peers = TEAM_DATA.flatMap(t => t.members)
     .filter(m => m.github && ghStats[m.github])
     .map(m => ghStats[m.github]);
@@ -1291,7 +1291,7 @@ function renderTeamSummary(stats, antEnrollment) {
   all.forEach(m => {
     const s = m.github && stats ? stats[m.github] : null;
     if (s) { po+=s.prs_opened; pm+=s.prs_merged; pr+=s.prs_reviewed; cm+=s.commits; }
-    const enrolled = antEnrollment ? !!antEnrollment[m.github] : m.cc;
+    const enrolled = m.cc || (antEnrollment ? !!antEnrollment[m.github] : false);
     if (enrolled) ccYes++;
   });
   const ccPct = Math.round(ccYes / all.length * 100);
@@ -1388,7 +1388,7 @@ function renderTeam() {
   TEAM_DATA.forEach(({team, members}) => {
     const cards = members.map(m => {
       const s = m.github && ghStats[m.github] ? ghStats[m.github] : null;
-      const enrolled = ant ? !!ant[m.github] : m.cc;
+      const enrolled = m.cc || (ant ? !!ant[m.github] : false);
       const statsHtml = s
         ? `<div class="stat-grid4">
             <div class="sbox"><div class="sbox-v" style="color:var(--accent)">${s.prs_opened}</div><div class="sbox-l">Opened</div></div>
