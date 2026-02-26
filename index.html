@@ -1304,8 +1304,41 @@ function renderTeamSummary(stats, antEnrollment) {
      <div class="tsb"><div class="tsb-val" style="color:${ccColor}">${ccPct}%</div><div class="tsb-lbl">Claude Code</div></div>`;
 }
 
+// Derive a smaller window's stats from a larger cached dataset using weekly data.
+// e.g. derive 30d stats from a 90d cache by summing the last 4 weekly buckets.
+// Returns a cache-shaped object, or null if the request can't be satisfied.
+function _deriveWindow(cache, days) {
+  if (!cache) return null;
+  if (cache.window_days === days) return cache;
+  if (cache.window_days < days) return null; // can't expand beyond what we have
+  const numWeeks = Math.max(1, Math.round(days / 7));
+  // Slice org weekly trend to last numWeeks weeks
+  const weekly_org = (cache.weekly_org || []).slice(-numWeeks);
+  // Re-derive per-member aggregate stats by summing their weekly buckets
+  const github_stats = {};
+  for (const [handle, mwEntry] of Object.entries(cache.member_weekly || {})) {
+    const weeks = (mwEntry.data?.weeks || []).slice(-numWeeks);
+    const base  = cache.github_stats?.[handle] || {};
+    github_stats[handle] = {
+      prs_opened:   weeks.reduce((s,w) => s+(w.prs_opened  ||0), 0),
+      prs_merged:   weeks.reduce((s,w) => s+(w.prs_merged  ||0), 0),
+      prs_reviewed: weeks.reduce((s,w) => s+(w.prs_reviewed||0), 0),
+      commits:      base.commits || 0, // commits not in weekly data, keep full-window value
+    };
+  }
+  // Slice Anthropic daily cost to matching days
+  const ant_usage = cache.ant_usage ? {
+    ...cache.ant_usage,
+    daily: (cache.ant_usage.daily || []).slice(-days),
+    cost_usd: (cache.ant_usage.daily || []).slice(-days).reduce((s,d) => s+(d.cost_usd||0), 0),
+    tokens:   (cache.ant_usage.daily || []).slice(-days).reduce((s,d) => s+(d.tokens||0), 0),
+  } : null;
+  return { ...cache, window_days: days, github_stats, weekly_org, ant_usage, _derived: true };
+}
+
 function renderTeam() {
-  const cache  = STATE.team_cache;
+  const rawCache = STATE.team_cache;
+  const cache    = _deriveWindow(rawCache, _teamWindow) || rawCache;
   const staleEl = document.getElementById("team-stale-msg");
   const fatEl   = document.getElementById("team-fetched-at");
   const sects   = document.getElementById("team-sections");
@@ -1321,7 +1354,7 @@ function renderTeam() {
   // Fetched label
   if (fatEl) {
     fatEl.textContent = cache?.fetched_at
-      ? `Last fetched ${new Date(cache.fetched_at).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${cache.window_days}d window`
+      ? `Last fetched ${new Date(cache.fetched_at).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${cache.window_days}d window${cache._derived ? " (derived from "+rawCache?.window_days+"d)" : ""}`
       : "";
   }
 
@@ -1378,9 +1411,8 @@ function renderTeam() {
     }
   }
 
-  const winMismatch = cache.window_days !== _teamWindow;
-  let html = winMismatch
-    ? `<div class="team-stale">Showing cached ${cache.window_days}-day data. Hit Refresh for ${_teamWindow}-day stats.</div>`
+  let html = cache._derived
+    ? `<div class="team-stale" style="background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.3);color:var(--accent)">Showing derived ${_teamWindow}d stats from ${rawCache?.window_days}d data. Hit Refresh for exact ${_teamWindow}d figures.</div>`
     : "";
   if (cache.github_error)
     html += `<div class="team-stale" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--red)">GitHub error: ${cache.github_error}</div>`;
