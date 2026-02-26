@@ -51,9 +51,9 @@ TEAM_DATA = [
         {"name": "Fabian Ceccato",  "github": "fabianceccato",     "cc": True,  "lead": False},
     ]},
     {"team": "DevOps", "members": [
-        {"name": "Ethan Moore",       "github": "ethan-moore",       "cc": True,  "lead": True},
-        {"name": "Tim Curtis",        "github": "tim-curtis",        "cc": True,  "lead": False},
-        {"name": "Mark JL",           "github": "mark-jl",           "cc": True,  "lead": False},
+        {"name": "Ethan Moore",       "github": "EthanM-0",       "cc": True,  "lead": True},
+        {"name": "Tim Curtis",        "github": "timjohncurtis",        "cc": True,  "lead": False},
+        {"name": "Mark JL",           "github": "mark-jordanovic-lewis",           "cc": True,  "lead": False},
         {"name": "Anthony Sikosa",    "github": "asikosa-senseon",   "cc": True,  "lead": False},
         {"name": "Thomas McGarrigan", "github": "thomas-mcgarrigan", "cc": True,  "lead": False},
     ]},
@@ -436,6 +436,18 @@ def fetch_member_weekly(
         f'airev: search(query:"{ai_query}", type:ISSUE, first:1){{issueCount}}'
     )
 
+    # Lines of code: fetch merged PR additions/deletions directly via GraphQL.
+    # This works for private repos and correctly handles squash merges.
+    # (contributionsCollection is blocked for private repos; contributor stats
+    #  report 0 additions/deletions for squash-merged commits.)
+    pr_lines_query = (
+        f'type:pr is:merged author:{handle} org:{GITHUB_ORG} merged:>={since}'
+    )
+    fields.append(
+        f'prlines: search(query:"{pr_lines_query}", type:ISSUE, first:100)'
+        f'{{ issueCount nodes {{ ... on PullRequest {{ additions deletions }} }} }}'
+    )
+
     query = "{ " + "\n".join(fields) + " }"
     data = gh_graphql(query, gh_session)
 
@@ -453,13 +465,13 @@ def fetch_member_weekly(
 
     ai_prs_reviewed = (data.get("airev") or {}).get("issueCount", 0)
 
-    # Lines-changed via contributor stats API (contributionsCollection is blocked
-    # for private repos unless members opt-in to sharing private contributions).
-    lines_added, lines_removed, pr_sample = fetch_lines_from_stats(
-        handle, days, gh_session, since_dt
-    )
-    lines_net    = lines_added - lines_removed
-    lines_per_pr = round((lines_added + lines_removed) / pr_sample) if pr_sample > 0 else 0
+    # Aggregate lines from merged PR nodes
+    pr_nodes = (data.get("prlines") or {}).get("nodes") or []
+    lines_added   = sum((n or {}).get("additions", 0) for n in pr_nodes)
+    lines_removed = sum((n or {}).get("deletions",  0) for n in pr_nodes)
+    pr_sample     = len(pr_nodes)
+    lines_net     = lines_added - lines_removed
+    lines_per_pr  = round((lines_added + lines_removed) / pr_sample) if pr_sample > 0 else 0
 
     return {
         "weeks":           week_rows,
@@ -497,13 +509,13 @@ def fetch_lines_from_stats(
     lines_added = lines_removed = pr_proxy = 0
 
     for repo in repos:
-        for attempt in range(3):
+        for attempt in range(8):
             resp = gh_session.get(
                 f"{GITHUB_API}/repos/{GITHUB_ORG}/{repo}/stats/contributors",
                 timeout=30,
             )
             if resp.status_code == 202:
-                time.sleep(3)  # GitHub is computing stats, retry
+                time.sleep(5)  # GitHub is computing stats, retry
                 continue
             if not resp.ok:
                 break
@@ -740,6 +752,30 @@ def main() -> None:
         # ------------------------------------------------------------------
         if not args.skip_member_weekly:
             print(f"\n[4/4] Per-member weekly data + lines ({len(ALL_MEMBERS)} members)")
+            # Pre-warm contributor stats for all repos so 202s resolve before we need them.
+            # GitHub caches these; the first request triggers computation (~10-60s for large repos).
+            all_repos = list({r for repos in TEAM_REPOS.values() for r in repos})
+            # Pre-warm contributor stats for all repos and wait until they're all ready.
+            # GitHub returns 202 while computing; we poll until 200 or give up after 90s.
+            print(f"  Pre-warming contributor stats for {len(all_repos)} repos...")
+            pending = set(all_repos)
+            for attempt in range(18):  # up to 90s (18 * 5s)
+                still_pending = set()
+                for repo in pending:
+                    resp = gh_session.get(
+                        f"{GITHUB_API}/repos/{GITHUB_ORG}/{repo}/stats/contributors",
+                        timeout=15,
+                    )
+                    if resp.status_code == 202:
+                        still_pending.add(repo)
+                pending = still_pending
+                if not pending:
+                    break
+                time.sleep(5)
+            if pending:
+                print(f"  [WARN] Stats still computing for: {', '.join(pending)} (will retry per-member)")
+            else:
+                print("  [OK] Stats cache warmed")
             fetched_count = 0
             for m in ALL_MEMBERS:
                 handle = m["github"]

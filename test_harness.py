@@ -40,7 +40,7 @@ ALL_HANDLES_LOWER = [
     "tomtidswell", "terryhibbert", "chrisdc",
     "mbrighty", "cameronbamford", "hh2110", "lukemoran-so",
     "andreasenseon", "operry-senseon", "fabianceccato",
-    "ethan-moore", "tim-curtis", "mark-jl",
+    "ethanm-0", "timjohncurtis", "mark-jordanovic-lewis",
     "asikosa-senseon", "thomas-mcgarrigan",
 ]
 

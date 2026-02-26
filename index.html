@@ -767,9 +767,9 @@ const TEAM_DATA = [
     {name:"Fabian Ceccato",  github:"fabianceccato",    cc:true,  lead:false},
   ]},
   {team:"DevOps", members:[
-    {name:"Ethan Moore",       github:"ethan-moore",       cc:true,  lead:true},
-    {name:"Tim Curtis",        github:"tim-curtis",        cc:true,  lead:false},
-    {name:"Mark JL",           github:"mark-jl",           cc:true,  lead:false},
+    {name:"Ethan Moore",       github:"EthanM-0",       cc:true,  lead:true},
+    {name:"Tim Curtis",        github:"timjohncurtis",        cc:true,  lead:false},
+    {name:"Mark JL",           github:"mark-jordanovic-lewis",           cc:true,  lead:false},
     {name:"Anthony Sikosa",    github:"asikosa-senseon",   cc:true,  lead:false},
     {name:"Thomas McGarrigan", github:"thomas-mcgarrigan", cc:true,  lead:false},
   ]},
@@ -868,8 +868,7 @@ async function _fetchOrgWeeklyTrend(days) {
 // Fetch per-member weekly PR breakdown + total lines contributed (one GraphQL batch).
 async function _fetchMemberWeekly(handle, days) {
   const weeks   = _getWeeks(days);
-  const sinceISO = new Date(Date.now() - days*86400000).toISOString();
-  const toISO    = new Date().toISOString();
+  const since = _isoSince(days);
 
   const weekFields = weeks.map((w,i) =>
     `w${i}o: search(query:"type:pr author:${handle} org:senseon-tech created:>=${w.start} created:<=${w.end}", type:ISSUE, first:1){issueCount}` +
@@ -877,17 +876,15 @@ async function _fetchMemberWeekly(handle, days) {
     ` w${i}r: search(query:"type:pr reviewed-by:${handle} org:senseon-tech -author:${handle} updated:>=${w.start} updated:<=${w.end}", type:ISSUE, first:1){issueCount}`
   ).join(" ");
 
-  // contributionsCollection gives lines added/removed per PR — filter to senseon-tech on client
-  const linesField = `ld: user(login:"${handle}"){contributionsCollection(from:"${sinceISO}",to:"${toISO}"){pullRequestContributions(first:50){nodes{pullRequest{additions deletions merged repository{nameWithOwner}}}}}}`;
-
-  // Also count AI bot PRs this person reviewed
-  const aiBotQuery = `type:pr reviewed-by:${handle} org:senseon-tech author:dependabot OR author:google-labs-jules OR author:copilot-swe-agent updated:>=${sinceISO.slice(0,10)}`;
+  // Lines via merged PR additions/deletions — works for private repos + squash merges
+  const prLinesField = `prlines: search(query:"type:pr is:merged author:${handle} org:senseon-tech merged:>=${since}", type:ISSUE, first:100){issueCount nodes{... on PullRequest{additions deletions}}}`;
+  const aiBotQuery = `type:pr reviewed-by:${handle} org:senseon-tech author:dependabot OR author:google-labs-jules OR author:copilot-swe-agent updated:>=${since}`;
   const aiReviewField = `airev: search(query:"${aiBotQuery}", type:ISSUE, first:1){issueCount}`;
 
   try {
     const r = await fetch("https://api.github.com/graphql", {
       method:"POST", headers:ghHeaders(),
-      body:JSON.stringify({query:`{${weekFields} ${linesField} ${aiReviewField}}`}),
+      body:JSON.stringify({query:`{${weekFields} ${prLinesField} ${aiReviewField}}`}),
     });
     if (!r.ok) return null;
     const json = await r.json();
@@ -900,11 +897,10 @@ async function _fetchMemberWeekly(handle, days) {
       prs_reviewed: d[`w${i}r`]?.issueCount ?? 0,
     }));
 
-    const prNodes    = d.ld?.contributionsCollection?.pullRequestContributions?.nodes || [];
-    const senseonPRs = prNodes.filter(n => n.pullRequest?.repository?.nameWithOwner?.startsWith("senseon-tech/"));
-    const lines_added   = senseonPRs.reduce((s,n) => s+(n.pullRequest.additions||0), 0);
-    const lines_removed = senseonPRs.reduce((s,n) => s+(n.pullRequest.deletions||0), 0);
-    const merged_prs    = senseonPRs.filter(n => n.pullRequest.merged);
+    const prNodes     = (d.prlines?.nodes || []).filter(Boolean);
+    const lines_added   = prNodes.reduce((s,n) => s+(n.additions||0), 0);
+    const lines_removed = prNodes.reduce((s,n) => s+(n.deletions||0), 0);
+    const merged_prs    = prNodes;
     const ai_prs_reviewed = d.airev?.issueCount ?? 0;
 
     return {
