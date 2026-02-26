@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>James Triggs — CTO Development</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com; img-src 'self' data: https:; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://api.anthropic.com; img-src 'self' data: https:; frame-ancestors 'none'">
 <style>
 :root{--bg:#0a0f1e;--surface:#111827;--surface2:#1a2236;--border:#1f2d44;--text:#e2e8f0;--muted:#94a3b8;--accent:#6366f1;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--radius:8px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -99,6 +99,33 @@ textarea:focus{border-color:var(--accent)}
 .info-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;font-size:12px;color:var(--muted);line-height:1.6}
 .info-box code{background:var(--bg);padding:2px 6px;border-radius:4px;font-family:monospace;color:var(--text)}
 @media(max-width:600px){.score-banner{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
+
+/* Team Tracking */
+.team-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.win-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+.win-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.win-btn:hover:not(.active){color:var(--text);border-color:var(--muted)}
+.team-summary-banner{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.tsb{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
+.tsb-val{font-size:22px;font-weight:800;margin:4px 0 2px}
+.tsb-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.team-section{margin-bottom:28px}
+.team-section-title{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.member-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.member-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.member-handle{font-size:10px;color:var(--muted);font-family:monospace;margin-bottom:10px}
+.stat-grid4{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
+.sbox{background:var(--surface2);border-radius:5px;padding:6px 8px;text-align:center}
+.sbox-v{font-size:17px;font-weight:800;line-height:1}
+.sbox-l{font-size:9px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.cc-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.cc-yes{background:rgba(99,102,241,.2);color:var(--accent)}
+.cc-no{background:rgba(148,163,184,.1);color:var(--muted)}
+.team-empty{text-align:center;padding:48px;color:var(--muted);font-size:13px}
+.team-stale{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--amber);margin-bottom:16px}
+.team-fetched{font-size:11px;color:var(--muted)}
+@media(max-width:600px){.team-summary-banner{grid-template-columns:repeat(3,1fr)}.member-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -175,6 +202,7 @@ textarea:focus{border-color:var(--accent)}
   <button class="tab active" data-pane="competencies">Big WHO Scorecard</button>
   <button class="tab" data-pane="journey">Development Journal</button>
   <button class="tab" data-pane="actions">Next Actions</button>
+  <button class="tab" data-pane="team">Team Tracking</button>
   <button class="tab" data-pane="settings">Settings</button>
 </div>
 
@@ -192,6 +220,19 @@ textarea:focus{border-color:var(--accent)}
 
 <div class="pane" id="pane-actions">
   <div id="actions-container"></div>
+</div>
+
+<div class="pane" id="pane-team">
+  <div id="team-stale-msg" class="team-stale" style="display:none">Data is more than 24 hours old — click Refresh to get the latest stats.</div>
+  <div class="team-toolbar">
+    <button class="win-btn active" data-days="30">30 days</button>
+    <button class="win-btn" data-days="60">60 days</button>
+    <button class="win-btn" data-days="90">90 days</button>
+    <button class="btn btn-sm btn-primary" id="btn-team-refresh" style="margin-left:auto">Refresh</button>
+    <span id="team-fetched-at" class="team-fetched"></span>
+  </div>
+  <div class="team-summary-banner" id="team-summary-banner"></div>
+  <div id="team-sections"></div>
 </div>
 
 <div class="pane" id="pane-settings">
@@ -212,6 +253,15 @@ textarea:focus{border-color:var(--accent)}
       </div>
     </div>
     <button class="btn btn-sm mt" id="btn-save-d1d2">Update scores</button>
+    <br/><br/>
+    <strong style="color:var(--text)">Anthropic Admin API key</strong> (optional — for live Claude Code adoption in Team Tracking):<br/>
+    <span style="font-size:11px;color:var(--muted)">Stored in this browser only, never in your Gist. Get from <code>/senseon/dashboard/anthropic-admin-key</code> in AWS Secrets Manager.</span>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+      <input type="password" id="settings-anthropic-key" placeholder="sk-ant-admin01-…" autocomplete="off"
+        style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:5px 8px;font-size:13px;font-family:monospace"/>
+      <button class="btn btn-sm" id="btn-save-anthropic-key">Save</button>
+    </div>
+    <span id="anthropic-key-status" style="font-size:11px;color:var(--muted)"></span>
   </div>
 </div>
 
@@ -340,7 +390,7 @@ function showSync(msg, isError) {
 
 // ── State ─────────────────────────────────────────────────────────────────────
 function defaultState() {
-  return {scores:{C1:3,C2:3,C3:3,C4:3,C5:3,C6:3}, evidence:{}, journal:[], actions:{}, gates:{}, d1:30.0, d2:13.3, last_saved:null};
+  return {scores:{C1:3,C2:3,C3:3,C4:3,C5:3,C6:3}, evidence:{}, journal:[], actions:{}, gates:{}, d1:30.0, d2:13.3, last_saved:null, team_cache:null};
 }
 let STATE = defaultState();
 
@@ -455,7 +505,7 @@ function renderSettings() {
   if (d2) d2.value = STATE.d2;
 }
 
-function renderAll() { renderBanner(); renderGates(); renderCompetencies(); renderJournal(); renderActions(); renderSettings(); }
+function renderAll() { renderBanner(); renderGates(); renderCompetencies(); renderJournal(); renderActions(); renderSettings(); renderSettingsAnthropicKey(); }
 
 // ── Events ────────────────────────────────────────────────────────────────────
 document.addEventListener("click", e => {
@@ -582,8 +632,30 @@ document.querySelectorAll(".tab").forEach(btn => {
     document.querySelectorAll(".pane").forEach(p=>p.classList.remove("active"));
     btn.classList.add("active");
     document.getElementById(`pane-${btn.dataset.pane}`).classList.add("active");
-    if (btn.dataset.pane==="settings") renderSettings();
+    if (btn.dataset.pane==="settings") { renderSettings(); renderSettingsAnthropicKey(); }
+    if (btn.dataset.pane==="team") renderTeam();
   });
+});
+
+document.getElementById("btn-team-refresh")?.addEventListener("click", () => refreshTeamData());
+
+document.addEventListener("click", e => {
+  const wb = e.target.closest(".win-btn[data-days]");
+  if (wb) {
+    _teamWindow = parseInt(wb.dataset.days);
+    document.querySelectorAll(".win-btn[data-days]").forEach(b =>
+      b.classList.toggle("active", parseInt(b.dataset.days) === _teamWindow));
+    renderTeam();
+  }
+});
+
+document.getElementById("btn-save-anthropic-key")?.addEventListener("click", () => {
+  const val = document.getElementById("settings-anthropic-key").value.trim();
+  _anthropicKey = val;
+  if (val) localStorage.setItem(LS_ANTHROPIC_KEY, val);
+  else localStorage.removeItem(LS_ANTHROPIC_KEY);
+  renderSettingsAnthropicKey();
+  showSync("Anthropic key saved", false);
 });
 
 document.getElementById("btn-save-d1d2")?.addEventListener("click", () => {
@@ -591,6 +663,240 @@ document.getElementById("btn-save-d1d2")?.addEventListener("click", () => {
   STATE.d2 = parseFloat(document.getElementById("settings-d2").value) || 13.3;
   renderBanner(); scheduleSave();
 });
+
+// ── Team Tracking ─────────────────────────────────────────────────────────────
+
+const TEAM_DATA = [
+  {team:"Frontend", members:[
+    {name:"Tom Tidswell",   github:"tomtidswell",       cc:true,  lead:true},
+    {name:"Terry Hibbert",  github:"TerryHibbert",      cc:true,  lead:false},
+    {name:"Chris Crouch",   github:"chrisdc",           cc:true,  lead:false},
+  ]},
+  {team:"Python", members:[
+    {name:"Matt Brighty",    github:"MBrighty",          cc:true,  lead:true},
+    {name:"Cameron Bamford", github:"CameronBamford",    cc:true,  lead:false},
+    {name:"Hikmat Yar",      github:null,                cc:true,  lead:false},
+    {name:"Luke Moran",      github:"lukemoran-so",      cc:true,  lead:false},
+  ]},
+  {team:"Endpoint", members:[
+    {name:"Andrea Marangoni",github:"AndreaSenseon",    cc:true,  lead:true},
+    {name:"Ollie Perry",     github:"operry-senseon",   cc:true,  lead:false},
+    {name:"Fabian Ceccato",  github:"fabianceccato",    cc:true,  lead:false},
+  ]},
+  {team:"DevOps", members:[
+    {name:"Ethan Moore",       github:"ethan-moore",       cc:true,  lead:true},
+    {name:"Tim Curtis",        github:"tim-curtis",        cc:true,  lead:false},
+    {name:"Mark JL",           github:"mark-jl",           cc:false, lead:false},
+    {name:"Anthony Sikosa",    github:"asikosa-senseon",   cc:true,  lead:false},
+    {name:"Thomas McGarrigan", github:"thomas-mcgarrigan", cc:true,  lead:false},
+  ]},
+];
+
+const LS_ANTHROPIC_KEY = "cto_anthropic_key";
+let _anthropicKey = localStorage.getItem(LS_ANTHROPIC_KEY) || "";
+let _teamWindow = 30;
+
+function _teamSlug(handle) {
+  return 'u_' + handle.toLowerCase().replace(/[^a-z0-9]/g, '_');
+}
+
+function _isoSince(days) {
+  const d = new Date(Date.now() - days * 86400000);
+  return d.toISOString().slice(0, 10);
+}
+
+// Build a single GraphQL query batching all member stats.
+function _buildTeamQuery(days) {
+  const since = _isoSince(days);
+  const parts = [];
+  TEAM_DATA.forEach(({members}) => {
+    members.filter(m => m.github).forEach(m => {
+      const s = _teamSlug(m.github);
+      const g = m.github;
+      parts.push(
+        `${s}_po: search(query:"type:pr author:${g} org:senseon-tech created:>=${since}", type:ISSUE, first:0){issueCount}`,
+        `${s}_pm: search(query:"type:pr is:merged author:${g} org:senseon-tech merged:>=${since}", type:ISSUE, first:0){issueCount}`,
+        `${s}_pr: search(query:"type:pr reviewed-by:${g} org:senseon-tech -author:${g} updated:>=${since}", type:ISSUE, first:0){issueCount}`,
+        `${s}_cm: search(query:"author:${g} org:senseon-tech committer-date:>=${since}", type:COMMIT, first:0){issueCount}`,
+      );
+    });
+  });
+  return `{${parts.join(' ')}}`;
+}
+
+async function _fetchGitHubTeamStats(days) {
+  const query = _buildTeamQuery(days);
+  const r = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: ghHeaders(),
+    body: JSON.stringify({query}),
+  });
+  if (!r.ok) throw new Error(`GitHub GraphQL ${r.status}`);
+  const json = await r.json();
+  if (json.errors) throw new Error(json.errors[0].message);
+  const d = json.data;
+  const stats = {};
+  TEAM_DATA.forEach(({members}) => {
+    members.filter(m => m.github).forEach(m => {
+      const s = _teamSlug(m.github);
+      stats[m.github] = {
+        prs_opened:   d[`${s}_po`]?.issueCount ?? 0,
+        prs_merged:   d[`${s}_pm`]?.issueCount ?? 0,
+        prs_reviewed: d[`${s}_pr`]?.issueCount ?? 0,
+        commits:      d[`${s}_cm`]?.issueCount ?? 0,
+      };
+    });
+  });
+  return stats;
+}
+
+// Try Anthropic Admin API for live key enrollment data.
+// Very likely CORS-blocked from the browser — returns null on failure.
+async function _fetchAnthropicEnrollment() {
+  if (!_anthropicKey) return null;
+  try {
+    let items = [], after = null;
+    for (let i = 0; i < 10; i++) {
+      const url = `https://api.anthropic.com/v1/organizations/api_keys?status=active&limit=100${after?'&after_id='+after:''}`;
+      const r = await fetch(url, {headers:{"x-api-key":_anthropicKey,"anthropic-version":"2023-06-01"}});
+      if (!r.ok) return null;
+      const json = await r.json();
+      items = items.concat(json.data || []);
+      if (!json.has_more) break;
+      after = json.last_id;
+    }
+    // Map claude_code_key_<person>_<suffix> → enrolled handle lookup
+    const enrolled = {};
+    TEAM_DATA.forEach(({members}) => members.forEach(m => {
+      if (!m.github) return;
+      // Check if any CC key name contains the member's known claude_key prefix
+      const found = items.some(k => k.name?.startsWith("claude_code_key_") &&
+        (k.name.includes(m.github.toLowerCase()) || k.name.includes(m.name.toLowerCase().replace(" ","."))));
+      if (found) enrolled[m.github] = true;
+    }));
+    return enrolled;
+  } catch(_) {
+    return null; // CORS or network
+  }
+}
+
+async function refreshTeamData() {
+  const btn = document.getElementById("btn-team-refresh");
+  if (btn) { btn.textContent = "Fetching…"; btn.disabled = true; }
+  try {
+    const [ghResult, antResult] = await Promise.allSettled([
+      _fetchGitHubTeamStats(_teamWindow),
+      _fetchAnthropicEnrollment(),
+    ]);
+    const ghStats = ghResult.status === "fulfilled" ? ghResult.value : null;
+    const ghErr   = ghResult.status === "rejected"  ? ghResult.reason.message : null;
+    const antData = antResult.status === "fulfilled" ? antResult.value : null;
+    STATE.team_cache = {
+      window_days:  _teamWindow,
+      fetched_at:   new Date().toISOString(),
+      github_stats: ghStats,
+      github_error: ghErr,
+      anthropic:    antData,  // null = CORS blocked, use static cc field
+    };
+    scheduleSave();
+    renderTeam();
+    if (ghErr) showSync("Team refresh partial: " + ghErr, true);
+    else showSync("Team stats refreshed", false);
+  } catch(e) {
+    showSync("Team refresh failed: " + e.message, true);
+  } finally {
+    if (btn) { btn.textContent = "Refresh"; btn.disabled = false; }
+  }
+}
+
+function renderTeamSummary(stats, antEnrollment) {
+  const all = TEAM_DATA.flatMap(t => t.members);
+  let po=0, pm=0, pr=0, cm=0, ccYes=0;
+  all.forEach(m => {
+    const s = m.github && stats ? stats[m.github] : null;
+    if (s) { po+=s.prs_opened; pm+=s.prs_merged; pr+=s.prs_reviewed; cm+=s.commits; }
+    const enrolled = antEnrollment ? !!antEnrollment[m.github] : m.cc;
+    if (enrolled) ccYes++;
+  });
+  const ccPct = Math.round(ccYes / all.length * 100);
+  const ccColor = ccPct>=80?"var(--green)":ccPct>=50?"var(--amber)":"var(--red)";
+  document.getElementById("team-summary-banner").innerHTML =
+    `<div class="tsb"><div class="tsb-val" style="color:var(--accent)">${po}</div><div class="tsb-lbl">PRs Opened</div></div>
+     <div class="tsb"><div class="tsb-val" style="color:var(--green)">${pm}</div><div class="tsb-lbl">Merged</div></div>
+     <div class="tsb"><div class="tsb-val" style="color:var(--amber)">${pr}</div><div class="tsb-lbl">Reviewed</div></div>
+     <div class="tsb"><div class="tsb-val">${cm}</div><div class="tsb-lbl">Commits</div></div>
+     <div class="tsb"><div class="tsb-val" style="color:${ccColor}">${ccPct}%</div><div class="tsb-lbl">Claude Code</div></div>`;
+}
+
+function renderTeam() {
+  const cache  = STATE.team_cache;
+  const staleEl = document.getElementById("team-stale-msg");
+  const fatEl   = document.getElementById("team-fetched-at");
+  const sects   = document.getElementById("team-sections");
+
+  // Sync window buttons
+  document.querySelectorAll(".win-btn[data-days]").forEach(b =>
+    b.classList.toggle("active", parseInt(b.dataset.days) === _teamWindow));
+
+  // Stale warning
+  const isStale = cache && (Date.now() - new Date(cache.fetched_at).getTime()) > 86400000;
+  if (staleEl) staleEl.style.display = isStale ? "block" : "none";
+
+  // Fetched label
+  if (fatEl) {
+    fatEl.textContent = cache?.fetched_at
+      ? `Last fetched ${new Date(cache.fetched_at).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${cache.window_days}d window`
+      : "";
+  }
+
+  if (!cache) {
+    document.getElementById("team-summary-banner").innerHTML = "";
+    sects.innerHTML = `<div class="team-empty">No data yet — click <strong>Refresh</strong> to fetch GitHub stats for the team.</div>`;
+    return;
+  }
+
+  const ghStats = cache.github_stats || {};
+  const ant     = cache.anthropic;   // null = use static .cc field
+
+  renderTeamSummary(ghStats, ant);
+
+  const winMismatch = cache.window_days !== _teamWindow;
+  let html = winMismatch
+    ? `<div class="team-stale">Showing cached ${cache.window_days}-day data. Hit Refresh for ${_teamWindow}-day stats.</div>`
+    : "";
+  if (cache.github_error)
+    html += `<div class="team-stale" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--red)">GitHub error: ${cache.github_error}</div>`;
+
+  TEAM_DATA.forEach(({team, members}) => {
+    const cards = members.map(m => {
+      const s = m.github && ghStats[m.github] ? ghStats[m.github] : null;
+      const enrolled = ant ? !!ant[m.github] : m.cc;
+      const statsHtml = s
+        ? `<div class="stat-grid4">
+            <div class="sbox"><div class="sbox-v" style="color:var(--accent)">${s.prs_opened}</div><div class="sbox-l">Opened</div></div>
+            <div class="sbox"><div class="sbox-v" style="color:var(--green)">${s.prs_merged}</div><div class="sbox-l">Merged</div></div>
+            <div class="sbox"><div class="sbox-v" style="color:var(--amber)">${s.prs_reviewed}</div><div class="sbox-l">Reviewed</div></div>
+            <div class="sbox"><div class="sbox-v">${s.commits}</div><div class="sbox-l">Commits</div></div>
+          </div>`
+        : `<div style="font-size:11px;color:var(--muted);margin-bottom:10px">${m.github ? "Stats not loaded" : "No GitHub handle"}</div>`;
+      const ccHtml = `<span class="cc-tag ${enrolled?"cc-yes":"cc-no"}">${enrolled?"Claude Code ✓":"No CC"}</span>`;
+      return `<div class="member-card">
+        <div class="member-name">${m.name}${m.lead?' <span style="font-size:10px;color:var(--muted)">(Lead)</span>':''}</div>
+        <div class="member-handle">${m.github?"@"+m.github:"—"}</div>
+        ${statsHtml}${ccHtml}
+      </div>`;
+    }).join("");
+    html += `<div class="team-section"><div class="team-section-title">${team}</div><div class="member-grid">${cards}</div></div>`;
+  });
+  sects.innerHTML = html;
+}
+
+function renderSettingsAnthropicKey() {
+  const el = document.getElementById("settings-anthropic-key");
+  if (el) el.value = _anthropicKey;
+  const st = document.getElementById("anthropic-key-status");
+  if (st) st.textContent = _anthropicKey ? "Key saved in this browser." : "No key saved.";
+}
 
 // Start
 boot();
