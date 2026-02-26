@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "description": "SenseOn engineering team directory — single source of truth for names, GitHub handles, Anthropic key prefixes, and team membership. Edit this file to add or update team members.",
+  "updated_at": "2026-02-26T00:00:00Z",
+  "org": "senseon-tech",
+  "teams": {
+    "Frontend": {
+      "repos": ["senseon-ui"]
+    },
+    "Python": {
+      "repos": ["senseon-appliance-api", "senseon-customer-api", "senseon-log-receiver"]
+    },
+    "Endpoint": {
+      "repos": ["senseon-enterprise-endpoint", "senseon-apns", "senseon-endpoint-driver"]
+    },
+    "DevOps": {
+      "repos": [
+        "senseon-cloud-infra", "terraform-appliance-cluster", "senseon-actions",
+        "senseon-access-control", "senseon-build-assistant"
+      ]
+    }
+  },
+  "members": [
+    {
+      "name": "Tom Tidswell",
+      "team": "Frontend",
+      "lead": true,
+      "github": "tomtidswell",
+      "anthropic_key_prefix": "tom.tidswell",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Terry Hibbert",
+      "team": "Frontend",
+      "lead": false,
+      "github": "TerryHibbert",
+      "anthropic_key_prefix": "terry.hibbert",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Chris Crouch",
+      "team": "Frontend",
+      "lead": false,
+      "github": "chrisdc",
+      "anthropic_key_prefix": "chris.crouch",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Matt Brighty",
+      "team": "Python",
+      "lead": true,
+      "github": "MBrighty",
+      "anthropic_key_prefix": "matthew",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Cameron Bamford",
+      "team": "Python",
+      "lead": false,
+      "github": "CameronBamford",
+      "anthropic_key_prefix": "cameron.bamford",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Hikmat Hasan",
+      "team": "Python",
+      "lead": false,
+      "github": "hh2110",
+      "anthropic_key_prefix": "hikmatyar",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Luke Moran",
+      "team": "Python",
+      "lead": false,
+      "github": "lukemoran-so",
+      "anthropic_key_prefix": "luke.moran",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Andrea Marangoni",
+      "team": "Endpoint",
+      "lead": true,
+      "github": "AndreaSenseon",
+      "anthropic_key_prefix": "andrea",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Ollie Perry",
+      "team": "Endpoint",
+      "lead": false,
+      "github": "operry-senseon",
+      "anthropic_key_prefix": "oliver.perry",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Fabian Ceccato",
+      "team": "Endpoint",
+      "lead": false,
+      "github": "fabianceccato",
+      "anthropic_key_prefix": "fabian",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Ethan Moore",
+      "team": "DevOps",
+      "lead": true,
+      "github": "EthanM-0",
+      "anthropic_key_prefix": "ethan.moore",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Tim Curtis",
+      "team": "DevOps",
+      "lead": false,
+      "github": "timjohncurtis",
+      "anthropic_key_prefix": "tim.curtis",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Mark JL",
+      "team": "DevOps",
+      "lead": false,
+      "github": "mark-jordanovic-lewis",
+      "anthropic_key_prefix": "markjl",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Anthony Sikosa",
+      "team": "DevOps",
+      "lead": false,
+      "github": "asikosa-senseon",
+      "anthropic_key_prefix": "anthony",
+      "cc_enrolled": true,
+      "active": true
+    },
+    {
+      "name": "Thomas McGarrigan",
+      "team": "DevOps",
+      "lead": false,
+      "github": "thomas-mcgarrigan",
+      "anthropic_key_prefix": "thomas",
+      "cc_enrolled": true,
+      "active": true
+    }
+  ]
+}

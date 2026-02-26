@@ -30,46 +30,52 @@ from typing import Any
 import requests  # pip install requests
 
 # ---------------------------------------------------------------------------
-# Team configuration
+# Team directory — loaded from data/team-directory.json (single source of truth)
 # ---------------------------------------------------------------------------
 
-TEAM_DATA = [
-    {"team": "Frontend", "members": [
-        {"name": "Tom Tidswell",    "github": "tomtidswell",       "cc": True,  "lead": True},
-        {"name": "Terry Hibbert",   "github": "TerryHibbert",      "cc": True,  "lead": False},
-        {"name": "Chris Crouch",    "github": "chrisdc",           "cc": True,  "lead": False},
-    ]},
-    {"team": "Python", "members": [
-        {"name": "Matt Brighty",    "github": "MBrighty",          "cc": True,  "lead": True},
-        {"name": "Cameron Bamford", "github": "CameronBamford",    "cc": True,  "lead": False},
-        {"name": "Hikmat Hasan",    "github": "hh2110",            "cc": True,  "lead": False},
-        {"name": "Luke Moran",      "github": "lukemoran-so",      "cc": True,  "lead": False},
-    ]},
-    {"team": "Endpoint", "members": [
-        {"name": "Andrea Marangoni","github": "AndreaSenseon",     "cc": True,  "lead": True},
-        {"name": "Ollie Perry",     "github": "operry-senseon",    "cc": True,  "lead": False},
-        {"name": "Fabian Ceccato",  "github": "fabianceccato",     "cc": True,  "lead": False},
-    ]},
-    {"team": "DevOps", "members": [
-        {"name": "Ethan Moore",       "github": "EthanM-0",       "cc": True,  "lead": True},
-        {"name": "Tim Curtis",        "github": "timjohncurtis",        "cc": True,  "lead": False},
-        {"name": "Mark JL",           "github": "mark-jordanovic-lewis",           "cc": True,  "lead": False},
-        {"name": "Anthony Sikosa",    "github": "asikosa-senseon",   "cc": True,  "lead": False},
-        {"name": "Thomas McGarrigan", "github": "thomas-mcgarrigan", "cc": True,  "lead": False},
-    ]},
-]
+DIRECTORY_FILE = Path(__file__).parent / "data" / "team-directory.json"
 
-GITHUB_ORG = "senseon-tech"
+def _load_directory() -> tuple[list, dict, str]:
+    """
+    Load team-directory.json and return (TEAM_DATA, TEAM_REPOS, GITHUB_ORG).
+    Falls back to empty lists if the file is missing.
+    """
+    if not DIRECTORY_FILE.exists():
+        print(f"[WARN] {DIRECTORY_FILE} not found — no team data available")
+        return [], {}, "senseon-tech"
 
-# Key repos per team for lines-of-code stats (contributor stats API)
-# contributionsCollection doesn't work for private repos unless members opt-in
-TEAM_REPOS: dict[str, list[str]] = {
-    "Frontend":  ["senseon-ui"],
-    "Python":    ["senseon-appliance-api", "senseon-customer-api", "senseon-log-receiver"],
-    "Endpoint":  ["senseon-enterprise-endpoint", "senseon-apns", "senseon-endpoint-driver"],
-    "DevOps":    ["senseon-cloud-infra", "terraform-appliance-cluster", "senseon-actions",
-                  "senseon-access-control", "senseon-build-assistant"],
-}
+    raw = json.loads(DIRECTORY_FILE.read_text(encoding="utf-8"))
+    org = raw.get("org", "senseon-tech")
+
+    # Build TEAM_DATA: list of {team, members:[{name, github, cc, lead}]}
+    team_map: dict[str, list] = {}
+    for m in raw.get("members", []):
+        if not m.get("active", True):
+            continue
+        team = m["team"]
+        team_map.setdefault(team, []).append({
+            "name":   m["name"],
+            "github": m.get("github") or "",
+            "cc":     m.get("cc_enrolled", True),
+            "lead":   m.get("lead", False),
+        })
+
+    team_order = list(raw.get("teams", {}).keys()) or list(team_map.keys())
+    team_data = [
+        {"team": t, "members": team_map[t]}
+        for t in team_order if t in team_map
+    ]
+
+    # Build TEAM_REPOS from the teams section
+    team_repos = {
+        t: info.get("repos", [])
+        for t, info in raw.get("teams", {}).items()
+    }
+
+    return team_data, team_repos, org
+
+
+TEAM_DATA, TEAM_REPOS, GITHUB_ORG = _load_directory()
 
 # ---------------------------------------------------------------------------
 # Derived constants
@@ -668,6 +674,66 @@ def fetch_anthropic_usage(days: int, ant_key: str) -> dict[str, Any] | None:
 # ---------------------------------------------------------------------------
 
 
+def discover_unknown_members(gh_session: requests.Session) -> None:
+    """
+    Fetch GitHub org members and compare against the directory.
+    Prints anyone not already in the directory so they can be added manually.
+    Also adds them as stubs to team-directory.json under team "Unknown".
+    """
+    known_handles = {m["github"].lower() for m in ALL_MEMBERS if m.get("github")}
+    try:
+        resp = gh_session.get(
+            f"{GITHUB_API}/orgs/{GITHUB_ORG}/members",
+            params={"per_page": 100}, timeout=30,
+        )
+        if not resp.ok:
+            return
+        org_members = resp.json()
+    except Exception:
+        return
+
+    unknown = [
+        m["login"] for m in org_members
+        if m["login"].lower() not in known_handles
+    ]
+    if not unknown:
+        print("  [OK] No unknown org members found")
+        return
+
+    print(f"\n  [NEW] {len(unknown)} org member(s) not in team-directory.json:")
+    for handle in unknown:
+        print(f"        {handle}")
+
+    # Append stub entries to the directory file so they're easy to fill in
+    if DIRECTORY_FILE.exists():
+        directory = json.loads(DIRECTORY_FILE.read_text(encoding="utf-8"))
+        existing_handles = {
+            (m.get("github") or "").lower()
+            for m in directory.get("members", [])
+        }
+        new_stubs = []
+        for handle in unknown:
+            if handle.lower() not in existing_handles:
+                new_stubs.append({
+                    "name":                 handle,
+                    "team":                 "Unknown",
+                    "lead":                 False,
+                    "github":               handle,
+                    "anthropic_key_prefix": "",
+                    "cc_enrolled":          False,
+                    "active":               False,
+                    "_note":                "Auto-discovered — fill in details and set active:true",
+                })
+        if new_stubs:
+            directory.setdefault("members", []).extend(new_stubs)
+            directory["updated_at"] = datetime.now(timezone.utc).isoformat()
+            DIRECTORY_FILE.write_text(
+                json.dumps(directory, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            print(f"  Added {len(new_stubs)} stub(s) to team-directory.json (active:false)")
+
+
 def write_json_atomic(path: Path, data: Any) -> None:
     """Write data as JSON to path atomically (write to .tmp, then rename)."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -725,9 +791,15 @@ def main() -> None:
 
     try:
         # ------------------------------------------------------------------
+        # 0. Discover unknown org members (compare against team-directory.json)
+        # ------------------------------------------------------------------
+        print("[0] Checking for new org members...")
+        discover_unknown_members(gh_session)
+
+        # ------------------------------------------------------------------
         # 1. GitHub aggregate PR stats
         # ------------------------------------------------------------------
-        print("[1/4] GitHub aggregate PR stats")
+        print("\n[1/4] GitHub aggregate PR stats")
         gh_stats, gh_error = fetch_github_stats(days, gh_session)
         result["github_stats"] = gh_stats
         result["github_error"] = gh_error

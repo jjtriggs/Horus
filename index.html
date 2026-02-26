@@ -639,8 +639,9 @@ function showApp() {
   if (STATE.last_saved) {
     document.getElementById("last-saved-label").textContent = `Last saved ${new Date(STATE.last_saved).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}`;
   }
-  // Load pre-fetched team metrics from repo JSON (populated by fetch_data.py)
-  loadStaticMetrics();
+  // Load team directory (who's who) then metrics — directory must be first
+  // so TEAM_DATA is populated before any team rendering happens.
+  loadTeamDirectory().then(() => loadStaticMetrics());
 }
 
 // Load team-metrics.json from the repo (written by fetch_data.py / after each browser refresh).
@@ -757,7 +758,9 @@ document.getElementById("btn-save-d1d2")?.addEventListener("click", () => {
 
 // ── Team Tracking ─────────────────────────────────────────────────────────────
 
-const TEAM_DATA = [
+// TEAM_DATA is loaded from data/team-directory.json at startup.
+// The hardcoded list below is a fallback only — edit the JSON file to add/update members.
+let TEAM_DATA = [
   {team:"Frontend", members:[
     {name:"Tom Tidswell",   github:"tomtidswell",       cc:true,  lead:true},
     {name:"Terry Hibbert",  github:"TerryHibbert",      cc:true,  lead:false},
@@ -775,13 +778,39 @@ const TEAM_DATA = [
     {name:"Fabian Ceccato",  github:"fabianceccato",    cc:true,  lead:false},
   ]},
   {team:"DevOps", members:[
-    {name:"Ethan Moore",       github:"EthanM-0",       cc:true,  lead:true},
-    {name:"Tim Curtis",        github:"timjohncurtis",        cc:true,  lead:false},
-    {name:"Mark JL",           github:"mark-jordanovic-lewis",           cc:true,  lead:false},
-    {name:"Anthony Sikosa",    github:"asikosa-senseon",   cc:true,  lead:false},
-    {name:"Thomas McGarrigan", github:"thomas-mcgarrigan", cc:true,  lead:false},
+    {name:"Ethan Moore",       github:"EthanM-0",        cc:true,  lead:true},
+    {name:"Tim Curtis",        github:"timjohncurtis",   cc:true,  lead:false},
+    {name:"Mark JL",           github:"mark-jordanovic-lewis", cc:true, lead:false},
+    {name:"Anthony Sikosa",    github:"asikosa-senseon", cc:true,  lead:false},
+    {name:"Thomas McGarrigan", github:"thomas-mcgarrigan",cc:true, lead:false},
   ]},
 ];
+
+// Load team directory from repo JSON — overrides the hardcoded fallback above.
+async function loadTeamDirectory() {
+  try {
+    const r = await fetch("/data/team-directory.json?t=" + Date.now());
+    if (!r.ok) return;
+    const dir = await r.json();
+    const teamOrder = Object.keys(dir.teams || {});
+    const teamMap = {};
+    for (const m of dir.members || []) {
+      if (m.active === false) continue;
+      const t = m.team;
+      if (!teamMap[t]) teamMap[t] = [];
+      teamMap[t].push({
+        name:   m.name,
+        github: m.github || null,
+        cc:     m.cc_enrolled !== false,
+        lead:   m.lead || false,
+      });
+    }
+    const order = teamOrder.length ? teamOrder : Object.keys(teamMap);
+    TEAM_DATA = order.filter(t => teamMap[t]).map(t => ({team: t, members: teamMap[t]}));
+  } catch(_) {
+    // Silently fall back to hardcoded TEAM_DATA
+  }
+}
 
 const LS_ANTHROPIC_KEY = "cto_anthropic_key";
 let _anthropicKey = localStorage.getItem(LS_ANTHROPIC_KEY) || "";
