@@ -42,7 +42,7 @@ class HorusHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.startswith(PROXY_PREFIX):
             self._proxy("GET")
-        elif self.path.startswith("/api/fetch-status"):
+        elif self.path.split("?")[0] == "/api/fetch-status":
             self._fetch_status()
         else:
             super().do_GET()
@@ -163,10 +163,13 @@ class HorusHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    port   = 8080
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port", type=int, default=8081)
+    port = ap.parse_args().port
     server = HTTPServer(("0.0.0.0", port), HorusHandler)
     print(f"Horus running at http://127.0.0.1:{port}")
-    print("  /proxy/anthropic/*  → Anthropic API proxy")
-    print("  POST /api/run-fetch → spawns fetch_data.py (background)")
-    print("  GET  /api/fetch-status → poll fetch progress")
+    print("  /proxy/anthropic/*     Anthropic API proxy")
+    print("  POST /api/run-fetch    spawns fetch_data.py (background)")
+    print("  GET  /api/fetch-status poll fetch progress")
     server.serve_forever()
