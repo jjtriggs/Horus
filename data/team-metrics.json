@@ -1,0 +1,2394 @@
+{
+  "window_days": 90,
+  "fetched_at": "2026-02-26T12:36:27.644Z",
+  "github_stats": {
+    "tomtidswell": {
+      "prs_opened": 29,
+      "prs_merged": 20,
+      "prs_reviewed": 42,
+      "commits": 32
+    },
+    "terryhibbert": {
+      "prs_opened": 15,
+      "prs_merged": 20,
+      "prs_reviewed": 13,
+      "commits": 37
+    },
+    "chrisdc": {
+      "prs_opened": 42,
+      "prs_merged": 33,
+      "prs_reviewed": 26,
+      "commits": 44
+    },
+    "mbrighty": {
+      "prs_opened": 31,
+      "prs_merged": 27,
+      "prs_reviewed": 203,
+      "commits": 47
+    },
+    "cameronbamford": {
+      "prs_opened": 53,
+      "prs_merged": 43,
+      "prs_reviewed": 36,
+      "commits": 77
+    },
+    "hh2110": {
+      "prs_opened": 74,
+      "prs_merged": 64,
+      "prs_reviewed": 91,
+      "commits": 97
+    },
+    "lukemoran-so": {
+      "prs_opened": 28,
+      "prs_merged": 17,
+      "prs_reviewed": 50,
+      "commits": 40
+    },
+    "andreasenseon": {
+      "prs_opened": 8,
+      "prs_merged": 6,
+      "prs_reviewed": 21,
+      "commits": 4
+    },
+    "operry-senseon": {
+      "prs_opened": 12,
+      "prs_merged": 12,
+      "prs_reviewed": 13,
+      "commits": 93
+    },
+    "fabianceccato": {
+      "prs_opened": 8,
+      "prs_merged": 9,
+      "prs_reviewed": 16,
+      "commits": 4
+    },
+    "ethan-moore": {
+      "prs_opened": 0,
+      "prs_merged": 0,
+      "prs_reviewed": 0,
+      "commits": 0
+    },
+    "tim-curtis": {
+      "prs_opened": 0,
+      "prs_merged": 0,
+      "prs_reviewed": 0,
+      "commits": 0
+    },
+    "mark-jl": {
+      "prs_opened": 0,
+      "prs_merged": 0,
+      "prs_reviewed": 0,
+      "commits": 1958
+    },
+    "asikosa-senseon": {
+      "prs_opened": 93,
+      "prs_merged": 91,
+      "prs_reviewed": 41,
+      "commits": 91
+    },
+    "thomas-mcgarrigan": {
+      "prs_opened": 9,
+      "prs_merged": 8,
+      "prs_reviewed": 21,
+      "commits": 15
+    }
+  },
+  "github_error": null,
+  "anthropic": null,
+  "ant_usage": {
+    "tokens": 0,
+    "cost_usd": 20325.22,
+    "daily": [
+      {
+        "label": "28 Nov",
+        "tokens": 0,
+        "cost_usd": 296.43
+      },
+      {
+        "label": "29 Nov",
+        "tokens": 0,
+        "cost_usd": 101.94
+      },
+      {
+        "label": "30 Nov",
+        "tokens": 0,
+        "cost_usd": 241.3
+      },
+      {
+        "label": "1 Dec",
+        "tokens": 0,
+        "cost_usd": 356.73
+      },
+      {
+        "label": "2 Dec",
+        "tokens": 0,
+        "cost_usd": 224.39
+      },
+      {
+        "label": "3 Dec",
+        "tokens": 0,
+        "cost_usd": 255.02
+      },
+      {
+        "label": "4 Dec",
+        "tokens": 0,
+        "cost_usd": 67.89
+      },
+      {
+        "label": "5 Dec",
+        "tokens": 0,
+        "cost_usd": 253.93
+      },
+      {
+        "label": "6 Dec",
+        "tokens": 0,
+        "cost_usd": 79.8
+      },
+      {
+        "label": "7 Dec",
+        "tokens": 0,
+        "cost_usd": 81.15
+      },
+      {
+        "label": "8 Dec",
+        "tokens": 0,
+        "cost_usd": 99.14
+      },
+      {
+        "label": "9 Dec",
+        "tokens": 0,
+        "cost_usd": 109.1
+      },
+      {
+        "label": "10 Dec",
+        "tokens": 0,
+        "cost_usd": 152.74
+      },
+      {
+        "label": "11 Dec",
+        "tokens": 0,
+        "cost_usd": 170.79
+      },
+      {
+        "label": "12 Dec",
+        "tokens": 0,
+        "cost_usd": 127.13
+      },
+      {
+        "label": "13 Dec",
+        "tokens": 0,
+        "cost_usd": 4.7
+      },
+      {
+        "label": "15 Dec",
+        "tokens": 0,
+        "cost_usd": 203.59
+      },
+      {
+        "label": "16 Dec",
+        "tokens": 0,
+        "cost_usd": 118.7
+      },
+      {
+        "label": "17 Dec",
+        "tokens": 0,
+        "cost_usd": 78.33
+      },
+      {
+        "label": "18 Dec",
+        "tokens": 0,
+        "cost_usd": 32.61
+      },
+      {
+        "label": "19 Dec",
+        "tokens": 0,
+        "cost_usd": 9.89
+      },
+      {
+        "label": "20 Dec",
+        "tokens": 0,
+        "cost_usd": 71.66
+      },
+      {
+        "label": "21 Dec",
+        "tokens": 0,
+        "cost_usd": 182.17
+      },
+      {
+        "label": "22 Dec",
+        "tokens": 0,
+        "cost_usd": 123.86
+      },
+      {
+        "label": "23 Dec",
+        "tokens": 0,
+        "cost_usd": 0.29
+      },
+      {
+        "label": "24 Dec",
+        "tokens": 0,
+        "cost_usd": 0.05
+      },
+      {
+        "label": "25 Dec",
+        "tokens": 0,
+        "cost_usd": 0.1
+      },
+      {
+        "label": "26 Dec",
+        "tokens": 0,
+        "cost_usd": 0.03
+      },
+      {
+        "label": "30 Dec",
+        "tokens": 0,
+        "cost_usd": 73.7
+      },
+      {
+        "label": "31 Dec",
+        "tokens": 0,
+        "cost_usd": 129.35
+      },
+      {
+        "label": "2 Jan",
+        "tokens": 0,
+        "cost_usd": 73.2
+      },
+      {
+        "label": "3 Jan",
+        "tokens": 0,
+        "cost_usd": 76.38
+      },
+      {
+        "label": "4 Jan",
+        "tokens": 0,
+        "cost_usd": 9.68
+      },
+      {
+        "label": "5 Jan",
+        "tokens": 0,
+        "cost_usd": 157.81
+      },
+      {
+        "label": "6 Jan",
+        "tokens": 0,
+        "cost_usd": 71.54
+      },
+      {
+        "label": "7 Jan",
+        "tokens": 0,
+        "cost_usd": 203.51
+      },
+      {
+        "label": "8 Jan",
+        "tokens": 0,
+        "cost_usd": 115.73
+      },
+      {
+        "label": "9 Jan",
+        "tokens": 0,
+        "cost_usd": 147.18
+      },
+      {
+        "label": "10 Jan",
+        "tokens": 0,
+        "cost_usd": 199.71
+      },
+      {
+        "label": "11 Jan",
+        "tokens": 0,
+        "cost_usd": 388.63
+      },
+      {
+        "label": "12 Jan",
+        "tokens": 0,
+        "cost_usd": 74.68
+      },
+      {
+        "label": "13 Jan",
+        "tokens": 0,
+        "cost_usd": 306.24
+      },
+      {
+        "label": "14 Jan",
+        "tokens": 0,
+        "cost_usd": 375.28
+      },
+      {
+        "label": "15 Jan",
+        "tokens": 0,
+        "cost_usd": 396.53
+      },
+      {
+        "label": "16 Jan",
+        "tokens": 0,
+        "cost_usd": 489.12
+      },
+      {
+        "label": "17 Jan",
+        "tokens": 0,
+        "cost_usd": 217.17
+      },
+      {
+        "label": "18 Jan",
+        "tokens": 0,
+        "cost_usd": 256.6
+      },
+      {
+        "label": "19 Jan",
+        "tokens": 0,
+        "cost_usd": 234.77
+      },
+      {
+        "label": "20 Jan",
+        "tokens": 0,
+        "cost_usd": 516.17
+      },
+      {
+        "label": "21 Jan",
+        "tokens": 0,
+        "cost_usd": 351.01
+      },
+      {
+        "label": "22 Jan",
+        "tokens": 0,
+        "cost_usd": 527.2
+      },
+      {
+        "label": "23 Jan",
+        "tokens": 0,
+        "cost_usd": 319.6
+      },
+      {
+        "label": "24 Jan",
+        "tokens": 0,
+        "cost_usd": 157.26
+      },
+      {
+        "label": "25 Jan",
+        "tokens": 0,
+        "cost_usd": 256.82
+      },
+      {
+        "label": "26 Jan",
+        "tokens": 0,
+        "cost_usd": 305.66
+      },
+      {
+        "label": "27 Jan",
+        "tokens": 0,
+        "cost_usd": 276.09
+      },
+      {
+        "label": "28 Jan",
+        "tokens": 0,
+        "cost_usd": 325.15
+      },
+      {
+        "label": "29 Jan",
+        "tokens": 0,
+        "cost_usd": 264.25
+      },
+      {
+        "label": "30 Jan",
+        "tokens": 0,
+        "cost_usd": 328.95
+      },
+      {
+        "label": "31 Jan",
+        "tokens": 0,
+        "cost_usd": 132.86
+      },
+      {
+        "label": "1 Feb",
+        "tokens": 0,
+        "cost_usd": 234.31
+      },
+      {
+        "label": "2 Feb",
+        "tokens": 0,
+        "cost_usd": 323.86
+      },
+      {
+        "label": "3 Feb",
+        "tokens": 0,
+        "cost_usd": 306.28
+      },
+      {
+        "label": "4 Feb",
+        "tokens": 0,
+        "cost_usd": 306.4
+      },
+      {
+        "label": "5 Feb",
+        "tokens": 0,
+        "cost_usd": 547.79
+      },
+      {
+        "label": "6 Feb",
+        "tokens": 0,
+        "cost_usd": 251.18
+      },
+      {
+        "label": "7 Feb",
+        "tokens": 0,
+        "cost_usd": 61.1
+      },
+      {
+        "label": "8 Feb",
+        "tokens": 0,
+        "cost_usd": 17.22
+      },
+      {
+        "label": "9 Feb",
+        "tokens": 0,
+        "cost_usd": 248.63
+      },
+      {
+        "label": "10 Feb",
+        "tokens": 0,
+        "cost_usd": 713.68
+      },
+      {
+        "label": "11 Feb",
+        "tokens": 0,
+        "cost_usd": 60.21
+      },
+      {
+        "label": "12 Feb",
+        "tokens": 0,
+        "cost_usd": 224.32
+      },
+      {
+        "label": "13 Feb",
+        "tokens": 0,
+        "cost_usd": 325.02
+      },
+      {
+        "label": "14 Feb",
+        "tokens": 0,
+        "cost_usd": 759.9
+      },
+      {
+        "label": "15 Feb",
+        "tokens": 0,
+        "cost_usd": 385.1
+      },
+      {
+        "label": "16 Feb",
+        "tokens": 0,
+        "cost_usd": 285.38
+      },
+      {
+        "label": "17 Feb",
+        "tokens": 0,
+        "cost_usd": 207.54
+      },
+      {
+        "label": "18 Feb",
+        "tokens": 0,
+        "cost_usd": 476.07
+      },
+      {
+        "label": "19 Feb",
+        "tokens": 0,
+        "cost_usd": 470.58
+      },
+      {
+        "label": "20 Feb",
+        "tokens": 0,
+        "cost_usd": 531.53
+      },
+      {
+        "label": "21 Feb",
+        "tokens": 0,
+        "cost_usd": 384.36
+      },
+      {
+        "label": "22 Feb",
+        "tokens": 0,
+        "cost_usd": 216.05
+      },
+      {
+        "label": "23 Feb",
+        "tokens": 0,
+        "cost_usd": 335.51
+      },
+      {
+        "label": "24 Feb",
+        "tokens": 0,
+        "cost_usd": 538.19
+      },
+      {
+        "label": "25 Feb",
+        "tokens": 0,
+        "cost_usd": 913.72
+      }
+    ]
+  },
+  "weekly_org": [
+    {
+      "start": "2025-11-28",
+      "end": "2025-12-04",
+      "label": "28 Nov",
+      "prs_opened": 67,
+      "prs_merged": 56
+    },
+    {
+      "start": "2025-12-05",
+      "end": "2025-12-11",
+      "label": "5 Dec",
+      "prs_opened": 78,
+      "prs_merged": 56
+    },
+    {
+      "start": "2025-12-12",
+      "end": "2025-12-18",
+      "label": "12 Dec",
+      "prs_opened": 67,
+      "prs_merged": 45
+    },
+    {
+      "start": "2025-12-19",
+      "end": "2025-12-25",
+      "label": "19 Dec",
+      "prs_opened": 30,
+      "prs_merged": 26
+    },
+    {
+      "start": "2025-12-26",
+      "end": "2026-01-01",
+      "label": "26 Dec",
+      "prs_opened": 10,
+      "prs_merged": 5
+    },
+    {
+      "start": "2026-01-02",
+      "end": "2026-01-08",
+      "label": "2 Jan",
+      "prs_opened": 80,
+      "prs_merged": 64
+    },
+    {
+      "start": "2026-01-09",
+      "end": "2026-01-15",
+      "label": "9 Jan",
+      "prs_opened": 91,
+      "prs_merged": 57
+    },
+    {
+      "start": "2026-01-16",
+      "end": "2026-01-22",
+      "label": "16 Jan",
+      "prs_opened": 162,
+      "prs_merged": 107
+    },
+    {
+      "start": "2026-01-23",
+      "end": "2026-01-29",
+      "label": "23 Jan",
+      "prs_opened": 131,
+      "prs_merged": 75
+    },
+    {
+      "start": "2026-01-30",
+      "end": "2026-02-05",
+      "label": "30 Jan",
+      "prs_opened": 147,
+      "prs_merged": 142
+    },
+    {
+      "start": "2026-02-06",
+      "end": "2026-02-12",
+      "label": "6 Feb",
+      "prs_opened": 141,
+      "prs_merged": 75
+    },
+    {
+      "start": "2026-02-13",
+      "end": "2026-02-19",
+      "label": "13 Feb",
+      "prs_opened": 102,
+      "prs_merged": 87
+    },
+    {
+      "start": "2026-02-20",
+      "end": "2026-02-26",
+      "label": "20 Feb",
+      "prs_opened": 113,
+      "prs_merged": 85
+    }
+  ],
+  "member_weekly": {
+    "tomtidswell": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 2,
+            "prs_merged": 1,
+            "prs_reviewed": 5
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 2,
+            "prs_merged": 4,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 4,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 4,
+            "prs_merged": 2,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 3,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 5,
+            "prs_merged": 7,
+            "prs_reviewed": 10
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 5,
+            "prs_merged": 2,
+            "prs_reviewed": 11
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 28,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:14.121Z",
+      "window_days": 90
+    },
+    "terryhibbert": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 2,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 5,
+            "prs_merged": 5,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 4,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 0,
+            "prs_merged": 4,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 5,
+            "prs_merged": 9,
+            "prs_reviewed": 6
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 19,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:17.986Z",
+      "window_days": 90
+    },
+    "chrisdc": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 4,
+            "prs_merged": 3,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 5,
+            "prs_merged": 5,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 1,
+            "prs_merged": 2,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 3,
+            "prs_merged": 2,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 4,
+            "prs_merged": 5,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 3,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 2,
+            "prs_merged": 3,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 5,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 6,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 3,
+            "prs_merged": 0,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 4,
+            "prs_merged": 12,
+            "prs_reviewed": 8
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 35,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:21.418Z",
+      "window_days": 90
+    },
+    "mbrighty": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 8
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 3,
+            "prs_merged": 1,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 1,
+            "prs_merged": 3,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 8
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 8,
+            "prs_merged": 6,
+            "prs_reviewed": 10
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 3,
+            "prs_merged": 1,
+            "prs_reviewed": 15
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 2,
+            "prs_merged": 5,
+            "prs_reviewed": 41
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 4,
+            "prs_merged": 1,
+            "prs_reviewed": 85
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 11
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 13
+          }
+        ],
+        "lines_added": 15326,
+        "lines_removed": 29707,
+        "lines_net": -14381,
+        "lines_per_pr": 2370,
+        "pr_sample": 19,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:28.653Z",
+      "window_days": 90
+    },
+    "cameronbamford": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 7,
+            "prs_merged": 6,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 5,
+            "prs_merged": 3,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 4,
+            "prs_merged": 2,
+            "prs_reviewed": 5
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 3,
+            "prs_merged": 6,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 3,
+            "prs_merged": 0,
+            "prs_reviewed": 5
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 7,
+            "prs_merged": 2,
+            "prs_reviewed": 10
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 7,
+            "prs_merged": 12,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 3,
+            "prs_merged": 1,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 6,
+            "prs_merged": 5,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 6,
+            "prs_merged": 4,
+            "prs_reviewed": 3
+          }
+        ],
+        "lines_added": 8986,
+        "lines_removed": 1172,
+        "lines_net": 7814,
+        "lines_per_pr": 308,
+        "pr_sample": 33,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:32.774Z",
+      "window_days": 90
+    },
+    "hh2110": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 10,
+            "prs_merged": 10,
+            "prs_reviewed": 9
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 12,
+            "prs_merged": 12,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 5
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 12,
+            "prs_merged": 9,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 2,
+            "prs_merged": 8,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 2,
+            "prs_merged": 8,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 25,
+            "prs_merged": 2,
+            "prs_reviewed": 51
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 4,
+            "prs_merged": 13,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 5
+          }
+        ],
+        "lines_added": 8272,
+        "lines_removed": 74,
+        "lines_net": 8198,
+        "lines_per_pr": 1391,
+        "pr_sample": 6,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:37.292Z",
+      "window_days": 90
+    },
+    "lukemoran-so": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 4,
+            "prs_merged": 8,
+            "prs_reviewed": 14
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 3,
+            "prs_merged": 3,
+            "prs_reviewed": 9
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 9
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 5,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 6,
+            "prs_merged": 0,
+            "prs_reviewed": 12
+          }
+        ],
+        "lines_added": 11542,
+        "lines_removed": 2234,
+        "lines_net": 9308,
+        "lines_per_pr": 1060,
+        "pr_sample": 13,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:40.936Z",
+      "window_days": 90
+    },
+    "andreasenseon": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 1,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 7
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 2,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:44.758Z",
+      "window_days": 90
+    },
+    "operry-senseon": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 1,
+            "prs_merged": 2,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 2,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 2,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 2,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 3,
+            "prs_merged": 4,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 0,
+            "prs_merged": 1,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 83,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:49.165Z",
+      "window_days": 90
+    },
+    "fabianceccato": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 5
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 1,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 1,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 2,
+            "prs_merged": 3,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 4,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:53.922Z",
+      "window_days": 90
+    },
+    "ethan-moore": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 0,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:37:58.439Z",
+      "window_days": 90
+    },
+    "tim-curtis": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 0,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:38:03.183Z",
+      "window_days": 90
+    },
+    "mark-jl": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          }
+        ],
+        "lines_added": 0,
+        "lines_removed": 0,
+        "lines_net": 0,
+        "lines_per_pr": 0,
+        "pr_sample": 0,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:38:07.207Z",
+      "window_days": 90
+    },
+    "asikosa-senseon": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 5,
+            "prs_merged": 5,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 5,
+            "prs_merged": 5,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 4,
+            "prs_merged": 4,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 15,
+            "prs_merged": 13,
+            "prs_reviewed": 8
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 7,
+            "prs_merged": 6,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 6,
+            "prs_merged": 8,
+            "prs_reviewed": 6
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 20,
+            "prs_merged": 20,
+            "prs_reviewed": 8
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 18,
+            "prs_merged": 17,
+            "prs_reviewed": 3
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 3,
+            "prs_merged": 3,
+            "prs_reviewed": 3
+          }
+        ],
+        "lines_added": 1893,
+        "lines_removed": 770,
+        "lines_net": 1123,
+        "lines_per_pr": 65,
+        "pr_sample": 41,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:38:16.853Z",
+      "window_days": 90
+    },
+    "thomas-mcgarrigan": {
+      "data": {
+        "weeks": [
+          {
+            "start": "2025-11-28",
+            "end": "2025-12-04",
+            "label": "28 Nov",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-05",
+            "end": "2025-12-11",
+            "label": "5 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2025-12-12",
+            "end": "2025-12-18",
+            "label": "12 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2025-12-19",
+            "end": "2025-12-25",
+            "label": "19 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2025-12-26",
+            "end": "2026-01-01",
+            "label": "26 Dec",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-02",
+            "end": "2026-01-08",
+            "label": "2 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 2
+          },
+          {
+            "start": "2026-01-09",
+            "end": "2026-01-15",
+            "label": "9 Jan",
+            "prs_opened": 1,
+            "prs_merged": 1,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-01-16",
+            "end": "2026-01-22",
+            "label": "16 Jan",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 9
+          },
+          {
+            "start": "2026-01-23",
+            "end": "2026-01-29",
+            "label": "23 Jan",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 4
+          },
+          {
+            "start": "2026-01-30",
+            "end": "2026-02-05",
+            "label": "30 Jan",
+            "prs_opened": 2,
+            "prs_merged": 2,
+            "prs_reviewed": 1
+          },
+          {
+            "start": "2026-02-06",
+            "end": "2026-02-12",
+            "label": "6 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-13",
+            "end": "2026-02-19",
+            "label": "13 Feb",
+            "prs_opened": 3,
+            "prs_merged": 2,
+            "prs_reviewed": 0
+          },
+          {
+            "start": "2026-02-20",
+            "end": "2026-02-26",
+            "label": "20 Feb",
+            "prs_opened": 0,
+            "prs_merged": 0,
+            "prs_reviewed": 1
+          }
+        ],
+        "lines_added": 2,
+        "lines_removed": 2,
+        "lines_net": 0,
+        "lines_per_pr": 2,
+        "pr_sample": 2,
+        "ai_prs_reviewed": 0
+      },
+      "fetched_at": "2026-02-26T12:38:21.805Z",
+      "window_days": 90
+    }
+  }
+}
