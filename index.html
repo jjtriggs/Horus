@@ -986,7 +986,8 @@ async function openMemberModal(member) {
   if (!gh) return;
 
   // 1-hour TTL cache for member weekly data
-  const mwCache = STATE.team_cache?.member_weekly?.[gh];
+  // member_weekly keys are always lowercase in the JSON
+  const mwCache = STATE.team_cache?.member_weekly?.[gh.toLowerCase()] || STATE.team_cache?.member_weekly?.[gh];
   const fresh = mwCache && mwCache.window_days === _teamWindow
     && (Date.now() - new Date(mwCache.fetched_at).getTime()) < 3600000;
 
@@ -994,7 +995,7 @@ async function openMemberModal(member) {
 
   if (mw && !fresh && STATE.team_cache) {
     if (!STATE.team_cache.member_weekly) STATE.team_cache.member_weekly = {};
-    STATE.team_cache.member_weekly[gh] = {data: mw, fetched_at: new Date().toISOString(), window_days: _teamWindow};
+    STATE.team_cache.member_weekly[gh.toLowerCase()] = {data: mw, fetched_at: new Date().toISOString(), window_days: _teamWindow};
   }
 
   const extEl = document.getElementById("modal-extended");
@@ -1041,12 +1042,14 @@ function _pctRank(val, arr) {
 
 function computeScore(member, ghStats, ant) {
   if (!member.github || !ghStats) return null;
-  const s = ghStats[member.github];
+  // JSON keys are always lowercase; handles may be mixed-case
+  const key = member.github.toLowerCase();
+  const s = ghStats[key] || ghStats[member.github];
   if (!s) return null;
   const enrolled = member.cc || (ant ? !!ant[member.github] : false);
   const peers = TEAM_DATA.flatMap(t => t.members)
-    .filter(m => m.github && ghStats[m.github])
-    .map(m => ghStats[m.github]);
+    .filter(m => m.github && (ghStats[m.github.toLowerCase()] || ghStats[m.github]))
+    .map(m => ghStats[m.github.toLowerCase()] || ghStats[m.github]);
   if (peers.length < 2) return null;
 
   const mergeRate = s.prs_opened > 0 ? s.prs_merged / s.prs_opened : 0;
@@ -1455,7 +1458,7 @@ function renderTeam() {
 
   TEAM_DATA.forEach(({team, members}) => {
     const cards = members.map(m => {
-      const s = m.github && ghStats[m.github] ? ghStats[m.github] : null;
+      const s = m.github ? (ghStats[m.github.toLowerCase()] || ghStats[m.github] || null) : null;
       const enrolled = m.cc || (ant ? !!ant[m.github] : false);
       const statsHtml = s
         ? `<div class="stat-grid4">
